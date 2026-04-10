@@ -2,6 +2,15 @@
 #' @import data.table
 #' @import StMoMo
 NULL
+#' data_generator_hmd_lt
+#'
+#' Purpose: data_generator_hmd_lt for the mortality forecasting reproducibility workflow.
+#' @param seed_input Input used by `data_generator_hmd_lt`.
+#' @param hmd_username Input used by `data_generator_hmd_lt`.
+#' @param hmd_password Input used by `data_generator_hmd_lt`.
+#' @param exposure_sup Input used by `data_generator_hmd_lt`.
+#' @param exposure_sub Input used by `data_generator_hmd_lt`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 data_generator_hmd_lt <- function(seed_input = 1,
                                   hmd_username = NULL,
@@ -157,6 +166,15 @@ data_generator_hmd_lt <- function(seed_input = 1,
 
 
 # Print group and age effect ----
+#' print_age_effects
+#'
+#' Purpose: print_age_effects for the mortality forecasting reproducibility workflow.
+#' @param seed_input Input used by `print_age_effects`.
+#' @param hmd_username Input used by `print_age_effects`.
+#' @param hmd_password Input used by `print_age_effects`.
+#' @param exposure_sup Input used by `print_age_effects`.
+#' @param exposure_sub Input used by `print_age_effects`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 print_age_effects <- function(seed_input=1,
                                   hmd_username=NULL,

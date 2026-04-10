@@ -1,3 +1,12 @@
+#' data_preprocessing
+#'
+#' Purpose: data_preprocessing for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `data_preprocessing`.
+#' @param N_groups Input used by `data_preprocessing`.
+#' @param bias Input used by `data_preprocessing`.
+#' @param years_fit Input used by `data_preprocessing`.
+#' @param ages_fit Input used by `data_preprocessing`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 data_preprocessing <- function(data,
                                N_groups = 3,
