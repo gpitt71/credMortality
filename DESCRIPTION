@@ -1,0 +1,22 @@
+Package: credMortality
+Title: Forecasting Sub-Population Mortality Using Credibility Theory
+Version: 0.0.0.9000
+Authors@R: 
+    person("Gabriele", "Pittarello", email = "YOUR_EMAIL", role = c("aut", "cre"))
+Description: Reproducible code supplement for the manuscript
+    "Forecasting Sub-Population Mortality Using Credibility Theory".
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports:
+    data.table,
+    demography,
+    dplyr,
+    forecast,
+    ggplot2,
+    rpart,
+    StMoMo,
+    tarchetypes,
+    targets,
+    tidyr
