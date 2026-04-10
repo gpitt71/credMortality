@@ -1,10 +1,13 @@
 Package: credMortality
-Title: Forecasting Sub-Population Mortality Using Credibility Theory
-Version: 0.0.0.9000
+Title: Reproducible Supplement for Credibility-Based Sub-Population Mortality Forecasting
+Version: 0.1.0
 Authors@R: 
-    person("Gabriele", "Pittarello", email = "YOUR_EMAIL", role = c("aut", "cre"))
-Description: Reproducible code supplement for the manuscript
+    person(given = "Gabriele", family = "Pittarello", email = "pwt887@ku.dk", role = c("aut", "cre"))
+Description: Reproducible code supplement accompanying the manuscript
     "Forecasting Sub-Population Mortality Using Credibility Theory".
+    The package provides data preparation, model fitting, forecasting,
+    performance assessment, and figure-generation functions used in the
+    manuscript's computational workflow.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,6 +20,4 @@ Imports:
     ggplot2,
     rpart,
     StMoMo,
-    tarchetypes,
-    targets,
     tidyr

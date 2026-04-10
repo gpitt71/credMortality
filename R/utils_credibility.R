@@ -1,5 +1,9 @@
 #' @import data.table
+#' @import dplyr
+#' @import forecast
+#' @import ggplot2
 #' @import rpart
+#' @import tidyr
 NULL
 
 # Preprocessing
@@ -12,6 +16,14 @@ wide_mat <- function(DT, value_col) {
   m
 }
 
+#' fit_mortality_models
+#'
+#' Purpose: fit_mortality_models for the mortality forecasting reproducibility workflow.
+#' @param data_pp Input used by `fit_mortality_models`.
+#' @param years_fit Input used by `fit_mortality_models`.
+#' @param ages_fit Input used by `fit_mortality_models`.
+#' @param global_mortality_model_candidates Input used by `fit_mortality_models`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 fit_mortality_models <- function(data_pp,
                                  years_fit,
@@ -91,6 +103,17 @@ fit_mortality_models <- function(data_pp,
 }
 
 # Fit credibility models ----
+#' fit_and_predict_total_model
+#'
+#' Purpose: fit_and_predict_total_model for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `fit_and_predict_total_model`.
+#' @param N_groups Input used by `fit_and_predict_total_model`.
+#' @param mortality_models_fit Input used by `fit_and_predict_total_model`.
+#' @param years_fit Input used by `fit_and_predict_total_model`.
+#' @param ages_fit Input used by `fit_and_predict_total_model`.
+#' @param bias Input used by `fit_and_predict_total_model`.
+#' @param forecasting_horizon Input used by `fit_and_predict_total_model`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 fit_and_predict_total_model <- function(data,
                                         N_groups,
@@ -181,6 +204,17 @@ fit_and_predict_total_model <- function(data,
   return(out)
 }
 
+#' fit_and_predict_credibility_models
+#'
+#' Purpose: fit_and_predict_credibility_models for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `fit_and_predict_credibility_models`.
+#' @param N_groups Input used by `fit_and_predict_credibility_models`.
+#' @param mortality_models_fit Input used by `fit_and_predict_credibility_models`.
+#' @param years_fit Input used by `fit_and_predict_credibility_models`.
+#' @param ages_fit Input used by `fit_and_predict_credibility_models`.
+#' @param bias Input used by `fit_and_predict_credibility_models`.
+#' @param forecasting_horizon Input used by `fit_and_predict_credibility_models`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 fit_and_predict_credibility_models <- function(data,
                                                N_groups,
@@ -345,6 +379,19 @@ is_implausible_muhat <- function(muhat,
   FALSE
 }
 
+#' fit_and_predict_separate_models
+#'
+#' Purpose: fit_and_predict_separate_models for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `fit_and_predict_separate_models`.
+#' @param N_groups Input used by `fit_and_predict_separate_models`.
+#' @param mortality_models_fit Input used by `fit_and_predict_separate_models`.
+#' @param years_fit Input used by `fit_and_predict_separate_models`.
+#' @param ages_fit Input used by `fit_and_predict_separate_models`.
+#' @param bias Input used by `fit_and_predict_separate_models`.
+#' @param forecasting_horizon Input used by `fit_and_predict_separate_models`.
+#' @param max_ratio_implausible Input used by `fit_and_predict_separate_models`.
+#' @param max_log_jump_implausible Input used by `fit_and_predict_separate_models`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 fit_and_predict_separate_models <- function(data,
                                             N_groups,
@@ -608,6 +655,17 @@ fit_and_predict_separate_models <- function(data,
 }
 # Sample size study ----
 
+#' sample_size_effect_on_predictions
+#'
+#' Purpose: sample_size_effect_on_predictions for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `sample_size_effect_on_predictions`.
+#' @param years_fit_basic Input used by `sample_size_effect_on_predictions`.
+#' @param number_of_rolls Input used by `sample_size_effect_on_predictions`.
+#' @param ages_fit Input used by `sample_size_effect_on_predictions`.
+#' @param N_groups Input used by `sample_size_effect_on_predictions`.
+#' @param bias Input used by `sample_size_effect_on_predictions`.
+#' @param global_mortality_model Input used by `sample_size_effect_on_predictions`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 sample_size_effect_on_predictions <- function(data,
                                               years_fit_basic,
@@ -695,6 +753,14 @@ sample_size_effect_on_predictions <- function(data,
 
 }
 
+#' sample_size_effect_plotter
+#'
+#' Purpose: sample_size_effect_plotter for the mortality forecasting reproducibility workflow.
+#' @param ss_effect Input used by `sample_size_effect_plotter`.
+#' @param color_group Input used by `sample_size_effect_plotter`.
+#' @param ages_to_plot Input used by `sample_size_effect_plotter`.
+#' @param label_to_plot Input used by `sample_size_effect_plotter`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 sample_size_effect_plotter <- function(ss_effect,
                                        color_group,
@@ -738,6 +804,13 @@ sample_size_effect_plotter <- function(ss_effect,
 }
 
 # Assess mortality model performance ----
+#' poisson_nll
+#'
+#' Purpose: poisson_nll for the mortality forecasting reproducibility workflow.
+#' @param occurrence Input used by `poisson_nll`.
+#' @param exposure Input used by `poisson_nll`.
+#' @param muxt_hat Input used by `poisson_nll`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 poisson_nll <- function(occurrence, exposure, muxt_hat) {
   out <- -sum(occurrence * log(exposure * muxt_hat) - exposure * muxt_hat -
@@ -752,23 +825,19 @@ poisson_nll <- function(occurrence, exposure, muxt_hat) {
 # Helpers for the Section 4.5 simulation study (main.R line 764 ff.)
 # -------------------------------------------------------------------
 
-#' @export
 `%||%` <- function(x, y) {
   if (is.null(x))
     y
   else
     x
 }
-#' @export
 .get_forecast_pp <- function(model_fit_and_prediction) {
   model_fit_and_prediction$actual_data$pre_processed_data_forecasting %||%
     model_fit_and_prediction$actual_data$full_pp_data
 }
-#' @export
 .get_superpopulation <- function(pp) {
   pp$superpopulation %||% pp$superpopulation
 }
-#' @export
 .get_subpopulation <- function(pp, i) {
   if (!is.null(pp$subpopulations)) {
     return(pp$subpopulations[[i]])
@@ -783,7 +852,6 @@ poisson_nll <- function(occurrence, exposure, muxt_hat) {
 }
 
 
-#' @export
 .make_selection_mask <- function(n,
                                  subset_rates = NULL,
                                  bias = 15) {
@@ -799,7 +867,6 @@ poisson_nll <- function(occurrence, exposure, muxt_hat) {
   out
 }
 
-#' @export
 .poisson_deviance_cells <- function(dxt, ext, mu_hat) {
   mu_hat <- as.numeric(mu_hat)
   dxt <- as.numeric(dxt)
@@ -828,7 +895,6 @@ poisson_nll <- function(occurrence, exposure, muxt_hat) {
   out
 }
 
-#' @export
 .assess_one_group <- function(mu_hat, actual_rate, dxt, ext, selected) {
   mu_hat <- as.numeric(mu_hat)
   actual_rate <- as.numeric(actual_rate)
@@ -864,6 +930,16 @@ poisson_nll <- function(occurrence, exposure, muxt_hat) {
 #' Updated model assessment compatible with both old and new fit_and_predict_* outputs.
 #' MARE follows the manuscript definition, including ARE = 0 when the observed rate is 0.
 #' Poisson deviance is returned as an average over the selected cells, not a sum.
+#' model_assessment
+#'
+#' Purpose: model_assessment for the mortality forecasting reproducibility workflow.
+#' @param model_fit_and_prediction Input used by `model_assessment`.
+#' @param N_groups Input used by `model_assessment`.
+#' @param years_fit Input used by `model_assessment`.
+#' @param forecasting_horizon Input used by `model_assessment`.
+#' @param bias Input used by `model_assessment`.
+#' @param subset_rates Input used by `model_assessment`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 model_assessment <- function(model_fit_and_prediction,
                              N_groups,
@@ -930,6 +1006,16 @@ model_assessment <- function(model_fit_and_prediction,
   out
 }
 
+#' model_assessment_superpop
+#'
+#' Purpose: model_assessment_superpop for the mortality forecasting reproducibility workflow.
+#' @param model_fit_and_prediction Input used by `model_assessment_superpop`.
+#' @param N_groups Input used by `model_assessment_superpop`.
+#' @param years_fit Input used by `model_assessment_superpop`.
+#' @param forecasting_horizon Input used by `model_assessment_superpop`.
+#' @param bias Input used by `model_assessment_superpop`.
+#' @param subset_rates Input used by `model_assessment_superpop`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 model_assessment_superpop <- function(model_fit_and_prediction,
                                       N_groups,
@@ -975,6 +1061,16 @@ model_assessment_superpop <- function(model_fit_and_prediction,
   out
 }
 
+#' model_assessment_full_mle
+#'
+#' Purpose: model_assessment_full_mle for the mortality forecasting reproducibility workflow.
+#' @param model_fit_and_prediction Input used by `model_assessment_full_mle`.
+#' @param N_groups Input used by `model_assessment_full_mle`.
+#' @param years_fit Input used by `model_assessment_full_mle`.
+#' @param forecasting_horizon Input used by `model_assessment_full_mle`.
+#' @param bias Input used by `model_assessment_full_mle`.
+#' @param subset_rates Input used by `model_assessment_full_mle`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 model_assessment_full_mle <- function(model_fit_and_prediction,
                                       N_groups,
@@ -1039,7 +1135,6 @@ model_assessment_full_mle <- function(model_fit_and_prediction,
   out
 }
 
-#' @export
 .call_data_preprocessing <- function(data, N_groups, ages_fit, years_fit) {
   fn_formals <- names(formals(data_preprocessing))
   args <- list(
@@ -1056,7 +1151,6 @@ model_assessment_full_mle <- function(model_fit_and_prediction,
   do.call(data_preprocessing, args)
 }
 
-#' @export
 .call_fit_mortality_models <- function(data_pp,
                                        years_fit,
                                        ages_fit,
@@ -1081,7 +1175,6 @@ model_assessment_full_mle <- function(model_fit_and_prediction,
   do.call(fit_mortality_models, args)
 }
 
-#' @export
 .call_fit_predict <- function(fun,
                               data,
                               data_pp,
@@ -1113,6 +1206,13 @@ model_assessment_full_mle <- function(model_fit_and_prediction,
   do.call(fun, args)
 }
 
+#' age_breaks_tbl
+#'
+#' Purpose: age_breaks_tbl for the mortality forecasting reproducibility workflow.
+#' @param age_min Input used by `age_breaks_tbl`.
+#' @param age_max Input used by `age_breaks_tbl`.
+#' @param width Input used by `age_breaks_tbl`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 age_breaks_tbl <- function(age_min = 16,
                            age_max = 85,
@@ -1126,7 +1226,6 @@ age_breaks_tbl <- function(age_min = 16,
     dplyr::mutate(age_breakets = paste(interval_start, interval_end, sep = "-"))
 }
 
-#' @export
 .as_assessment_df <- function(perf,
                               seed_ix,
                               years_ix,
@@ -1145,7 +1244,6 @@ age_breaks_tbl <- function(age_min = 16,
   df
 }
 
-#' @export
 .simulation_cell_setup <- function(seed_ix,
                                    years_ix,
                                    ages_fit = 15:85,
@@ -1191,7 +1289,6 @@ age_breaks_tbl <- function(age_min = 16,
   )
 }
 
-#' @export
 .summarise_separate_failures <- function(separate_model,
                                          predictors = c("lc", "apc", "rh")) {
   failed_fits <- attr(separate_model, "failed_fit", exact = TRUE)
@@ -1217,7 +1314,6 @@ age_breaks_tbl <- function(age_min = 16,
   out[]
 }
 
-#' @export
 .summarise_insample_bic <- function(mortality_models_fit,
                                     data_pp) {
   out <- lapply(names(mortality_models_fit), function(model_ix) {
@@ -1235,6 +1331,10 @@ age_breaks_tbl <- function(age_min = 16,
   data.table::rbindlist(out, use.names = TRUE)
 }
 
+#' run_simulation_study_cell
+#'
+#' Purpose: run_simulation_study_cell for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 run_simulation_study_cell <- function(seed_ix,
                                       years_ix,
@@ -1425,6 +1525,10 @@ run_simulation_study_cell <- function(seed_ix,
 
 
 # Convergence and BIC ----
+#' empty_failed_fits_dt
+#'
+#' Purpose: empty_failed_fits_dt for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 empty_failed_fits_dt <- function() {
   data.table::data.table(
@@ -1435,6 +1539,10 @@ empty_failed_fits_dt <- function() {
     failed_fit = integer()
   )
 }
+#' run_separate_failures_cell
+#'
+#' Purpose: run_separate_failures_cell for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 run_separate_failures_cell <- function(seed_ix,
                                        years_ix,
@@ -1510,6 +1618,11 @@ run_separate_failures_cell <- function(seed_ix,
   failed_fits[]
 }
 
+#' bind_separate_failures
+#'
+#' Purpose: bind_separate_failures for the mortality forecasting reproducibility workflow.
+#' @param x Input used by `bind_separate_failures`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 bind_separate_failures <- function(x) {
   if (length(x) == 0L) {
@@ -1528,6 +1641,15 @@ bind_separate_failures <- function(x) {
 
 
 # Plots ----
+#' weights_plotter
+#'
+#' Purpose: weights_plotter for the mortality forecasting reproducibility workflow.
+#' @param credibility_model Input used by `weights_plotter`.
+#' @param N_groups Input used by `weights_plotter`.
+#' @param ages_fit Input used by `weights_plotter`.
+#' @param predictor Input used by `weights_plotter`.
+#' @param ages_breaks Input used by `weights_plotter`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 weights_plotter <- function(credibility_model,
                             N_groups,
@@ -1568,6 +1690,14 @@ weights_plotter <- function(credibility_model,
     xlab("") +
     labs(color = "")
 }
+#' all_thetas_plotter
+#'
+#' Purpose: all_thetas_plotter for the mortality forecasting reproducibility workflow.
+#' @param credibility_model Input used by `all_thetas_plotter`.
+#' @param N_groups Input used by `all_thetas_plotter`.
+#' @param ages_fit Input used by `all_thetas_plotter`.
+#' @param predictor Input used by `all_thetas_plotter`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 all_thetas_plotter <- function(credibility_model,
                                N_groups,
@@ -1627,6 +1757,12 @@ all_thetas_plotter <- function(credibility_model,
 }
 
 
+#' exposure_plotter
+#'
+#' Purpose: exposure_plotter for the mortality forecasting reproducibility workflow.
+#' @param data_pp Input used by `exposure_plotter`.
+#' @param predictor Input used by `exposure_plotter`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 exposure_plotter <- function(data_pp, predictor = "lc") {
   E1 <- apply(data_pp$datahat$Ext, 1, sum, na.rm = T)
@@ -1663,6 +1799,13 @@ exposure_plotter <- function(data_pp, predictor = "lc") {
 }
 
 
+#' variance_plotter
+#'
+#' Purpose: variance_plotter for the mortality forecasting reproducibility workflow.
+#' @param credibility_model Input used by `variance_plotter`.
+#' @param predictor Input used by `variance_plotter`.
+#' @param ages_fit Input used by `variance_plotter`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 variance_plotter <- function(credibility_model, predictor = "lc", ages_fit) {
   #
@@ -1727,6 +1870,17 @@ variance_plotter <- function(credibility_model, predictor = "lc", ages_fit) {
 
 }
 
+#' thetas_plotter
+#'
+#' Purpose: thetas_plotter for the mortality forecasting reproducibility workflow.
+#' @param credibility_model Input used by `thetas_plotter`.
+#' @param subgroup Input used by `thetas_plotter`.
+#' @param ages_fit Input used by `thetas_plotter`.
+#' @param years_fit Input used by `thetas_plotter`.
+#' @param mortality_models_fit Input used by `thetas_plotter`.
+#' @param predictor Input used by `thetas_plotter`.
+#' @param chosen_age Input used by `thetas_plotter`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 thetas_plotter <- function(credibility_model,
                            subgroup,
@@ -1799,6 +1953,15 @@ thetas_plotter <- function(credibility_model,
 
 
 
+#' plot_credibility_mle_global
+#'
+#' Purpose: plot_credibility_mle_global for the mortality forecasting reproducibility workflow.
+#' @param credibility_model Input used by `plot_credibility_mle_global`.
+#' @param N_groups Input used by `plot_credibility_mle_global`.
+#' @param ages_fit Input used by `plot_credibility_mle_global`.
+#' @param predictor Input used by `plot_credibility_mle_global`.
+#' @param ages_breaks Input used by `plot_credibility_mle_global`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 plot_credibility_mle_global <- function(credibility_model,
                                         N_groups,
@@ -1893,6 +2056,12 @@ plot_credibility_mle_global <- function(credibility_model,
 
 }
 
+#' binomial_simulator
+#'
+#' Purpose: binomial_simulator for the mortality forecasting reproducibility workflow.
+#' @param starting_exposure Input used by `binomial_simulator`.
+#' @param probabilities Input used by `binomial_simulator`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 binomial_simulator <- function(starting_exposure, probabilities) {
   starting_period_lives <- starting_exposure
@@ -1917,6 +2086,11 @@ binomial_simulator <- function(starting_exposure, probabilities) {
 
 }
 
+#' average_exposure_and_deaths
+#'
+#' Purpose: average_exposure_and_deaths for the mortality forecasting reproducibility workflow.
+#' @param raw_exposure Input used by `average_exposure_and_deaths`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 average_exposure_and_deaths <- function(raw_exposure) {
   out <- raw_exposure
@@ -1941,6 +2115,14 @@ average_exposure_and_deaths <- function(raw_exposure) {
 
 }
 
+#' plot_predicted_event_trends
+#'
+#' Purpose: plot_predicted_event_trends for the mortality forecasting reproducibility workflow.
+#' @param mortality_models_fit Input used by `plot_predicted_event_trends`.
+#' @param data_pp Input used by `plot_predicted_event_trends`.
+#' @param # subgroup Input used by `plot_predicted_event_trends`.
+#' @param model_option Input used by `plot_predicted_event_trends`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 plot_predicted_event_trends <- function(mortality_models_fit,
                                         data_pp,
@@ -2022,6 +2204,11 @@ plot_predicted_event_trends <- function(mortality_models_fit,
   return(p)
 
 }
+#' fill_missing_rows
+#'
+#' Purpose: fill_missing_rows for the mortality forecasting reproducibility workflow.
+#' @param df Input used by `fill_missing_rows`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 fill_missing_rows <- function(df) {
   # First, create a vector of ages from 0 to 110
@@ -2072,6 +2259,12 @@ fill_missing_rows <- function(df) {
 }
 
 
+#' k_years_smoothing
+#'
+#' Purpose: k_years_smoothing for the mortality forecasting reproducibility workflow.
+#' @param x Input used by `k_years_smoothing`.
+#' @param k Input used by `k_years_smoothing`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 k_years_smoothing <- function(x, k = 5) {
   ll <- 1:length(x)
@@ -2082,12 +2275,34 @@ k_years_smoothing <- function(x, k = 5) {
 
 }
 
+#' average_smoother
+#'
+#' Purpose: average_smoother for the mortality forecasting reproducibility workflow.
+#' @param pos Input used by `average_smoother`.
+#' @param x Input used by `average_smoother`.
+#' @param k Input used by `average_smoother`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 average_smoother <- function(pos, x, k) {
   out <- x[max(pos - ((k - 1) / 2), 1):min(pos + ((k - 1) / 2), length(x))]
   return(mean(out))
 }
 
+#' plot_smoothed_unsmoothed
+#'
+#' Purpose: plot_smoothed_unsmoothed for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `plot_smoothed_unsmoothed`.
+#' @param data_pp Input used by `plot_smoothed_unsmoothed`.
+#' @param N_groups Input used by `plot_smoothed_unsmoothed`.
+#' @param mortality_models_fit Input used by `plot_smoothed_unsmoothed`.
+#' @param years_fit Input used by `plot_smoothed_unsmoothed`.
+#' @param ages_fit Input used by `plot_smoothed_unsmoothed`.
+#' @param bias Input used by `plot_smoothed_unsmoothed`.
+#' @param scenario Input used by `plot_smoothed_unsmoothed`.
+#' @param model_2_plot Input used by `plot_smoothed_unsmoothed`.
+#' @param smoothing_years Input used by `plot_smoothed_unsmoothed`.
+#' @param forecasting_horizon Input used by `plot_smoothed_unsmoothed`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 plot_smoothed_unsmoothed  <- function(data,
                                       data_pp,
@@ -2543,6 +2758,10 @@ compute_insample_bic_scratch <- function(model_fit, data_stmomo, model_label) {
   )
 }
 
+#' run_insample_bic_cell
+#'
+#' Purpose: run_insample_bic_cell for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 run_insample_bic_cell <- function(seed_ix,
                                   years_ix,
@@ -2601,15 +2820,12 @@ run_insample_bic_cell <- function(seed_ix,
 # -------------------------------------------------------------------
 # Figure 5 helpers
 # -------------------------------------------------------------------
-#' @export
 .parse_age_breakets_start <- function(x) {
   as.integer(sub("-.*$", "", x))
 }
-#' @export
 .age_breakets_levels <- function(x) {
   unique(x[order(.parse_age_breakets_start(x))])
 }
-#' @export
 .figure5_model_levels <- function(group_id = NULL) {
   if (is.null(group_id)) {
     c("superpopulation", "credibility", "full_mle", "separate")
@@ -2617,6 +2833,13 @@ run_insample_bic_cell <- function(seed_ix,
     c("total", "credibility", "full_mle", "separate")
   }
 }
+#' summarise_age_bracket_results
+#'
+#' Purpose: summarise_age_bracket_results for the mortality forecasting reproducibility workflow.
+#' @param results_dt Input used by `summarise_age_bracket_results`.
+#' @param predictor Input used by `summarise_age_bracket_results`.
+#' @param group_id Input used by `summarise_age_bracket_results`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 summarise_age_bracket_results <- function(results_dt,
                                           predictor = "lc",
@@ -2652,6 +2875,10 @@ summarise_age_bracket_results <- function(results_dt,
   dt[]
 }
 
+#' plot_age_bracket_metric
+#'
+#' Purpose: plot_age_bracket_metric for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 plot_age_bracket_metric <- function(summary_dt,
                                     metric = c("mare", "deviance"),
@@ -2710,6 +2937,10 @@ plot_age_bracket_metric <- function(summary_dt,
     )
 }
 
+#' write_age_bracket_plot
+#'
+#' Purpose: write_age_bracket_plot for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 write_age_bracket_plot <- function(results_dt,
                                    predictor = "lc",
@@ -2774,6 +3005,15 @@ write_age_bracket_plot <- function(results_dt,
 # Figure 6 helpers
 # -------------------------------------------------------------------
 
+#' scoring_plot
+#'
+#' Purpose: scoring_plot for the mortality forecasting reproducibility workflow.
+#' @param data Input used by `scoring_plot`.
+#' @param metric Input used by `scoring_plot`.
+#' @param superpopulation Input used by `scoring_plot`.
+#' @param subpopulation Input used by `scoring_plot`.
+#' @param predictor_choice Input used by `scoring_plot`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 scoring_plot <- function(data,
                          metric,
@@ -2874,7 +3114,6 @@ scoring_plot <- function(data,
 # MSEP study helpers
 # -------------------------------------------------------------------
 
-#' @export
 .msep_age_index <- function(x, reference_age) {
   rn <- rownames(x)
 
@@ -2893,7 +3132,6 @@ scoring_plot <- function(data,
   stop("Could not locate reference_age in the supplied matrix.")
 }
 
-#' @export
 .msep_forecast_stmomo <- function(model_fit,
                                   model_option = "lc",
                                   forecasting_horizon = 5) {
@@ -2922,7 +3160,6 @@ scoring_plot <- function(data,
   out
 }
 
-#' @export
 .msep_is_implausible_path <- function(muhat,
                                       global_muhat,
                                       max_ratio = 50,
@@ -2953,7 +3190,6 @@ scoring_plot <- function(data,
   FALSE
 }
 
-#' @export
 .msep_fit_separate_group <- function(subpop,
                                      ages_fit,
                                      years_fit,
@@ -3041,7 +3277,6 @@ scoring_plot <- function(data,
   )
 }
 
-#' @export
 .msep_plot_long <- function(dt_all_rates) {
   out <- dt_all_rates |>
     dplyr::mutate(calendar_time = 0:(nrow(dt_all_rates) - 1L)) |>
@@ -3069,6 +3304,12 @@ scoring_plot <- function(data,
   out
 }
 
+#' plot_msep_group
+#'
+#' Purpose: plot_msep_group for the mortality forecasting reproducibility workflow.
+#' @param group_result Input used by `plot_msep_group`.
+#' @param ylim Input used by `plot_msep_group`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 plot_msep_group <- function(group_result, ylim = NULL) {
   dt_all_rates <- group_result$plot_data
@@ -3115,6 +3356,13 @@ plot_msep_group <- function(group_result, ylim = NULL) {
   p
 }
 
+#' write_msep_plot
+#'
+#' Purpose: write_msep_plot for the mortality forecasting reproducibility workflow.
+#' @param group_result Input used by `write_msep_plot`.
+#' @param out Input used by `write_msep_plot`.
+#' @param ylim Input used by `write_msep_plot`.
+#' @return An R object produced by this step of the workflow.
 #' @export
 write_msep_plot <- function(group_result, out, ylim = NULL) {
   fs::dir_create(dirname(out))
@@ -3130,6 +3378,10 @@ write_msep_plot <- function(group_result, out, ylim = NULL) {
   out
 }
 
+#' run_msep_study
+#'
+#' Purpose: run_msep_study for the mortality forecasting reproducibility workflow.
+#' @return An R object produced by this step of the workflow.
 #' @export
 run_msep_study <- function(data,
                            data_pp,
@@ -3341,6 +3593,4 @@ run_msep_study <- function(data,
     groups = results
   )
 }
-
-
 
