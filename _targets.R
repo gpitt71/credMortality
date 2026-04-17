@@ -205,22 +205,13 @@ list(
 
   tar_target(fig2c_pdf, {
     out <- "figures/lc_simulation_zs.pdf"
-
-    p <- weights_plotter (
+    p <- weights_plotter(
       credibility_model,
       N_groups,
       ages_fit,
       predictor = "lc",
       ages_breaks = c(25, 50, 75, 85)
-    ) +
-      scale_color_manual(
-        values = c(
-          "Z_2" = "#4169E1",
-          "Z_3" = "#006400",
-          "Z_1" = "#a71429"
-        ),
-        labels = c(expression(Z[x]^1), expression(Z[x]^2), expression(Z[x]^3))
-      )
+    )
 
     ggplot2::ggsave(
       filename = out,
@@ -532,81 +523,6 @@ list(
     }
   ),
 
-  tar_target(lc_mse_superpop_pdf, {
-    out <- "figures/lc_mse_age_classes.pdf"
-
-    p <- scoring_plot(
-      data = sim_age_bracket_results,
-      metric = "mse",
-      superpopulation = TRUE,
-      predictor_choice = "lc"
-    )
-
-    p <- p +
-      scale_y_continuous(
-        labels = function(x) x * 1e5
-      ) +
-      #coord_cartesian(ylim = c(0, 20e-05))+
-      scale_color_discrete(labels = c("A", "B", "C", "D")) +
-      labs(x = "", y = "", color = "") +
-      theme(
-        plot.background = element_rect(color = "red", fill = NA, linewidth = 1),
-        legend.position = "inside",
-        legend.position.inside = c(0.85, 0.85),
-        legend.justification = c("left", "top"),
-        legend.key.height = unit(1.5, "lines"),
-        legend.background = element_blank(),
-        legend.key = element_blank(),
-        axis.text.x = element_text(angle = 90)
-      )
-
-    ggplot2::ggsave(
-      filename = out,
-      plot = p,
-      width = 10,
-      height = 10
-    )
-
-    out
-  }, format = "file"),
-  tar_target(lc_mse_superpop_app, {
-    out <- "figures/lc_mse_age_classes_app.pdf"
-
-    p <- scoring_plot(
-      data = sim_age_bracket_results,
-      metric = "mse",
-      superpopulation = TRUE,
-      predictor_choice = "lc"
-    )
-
-    p <- p +
-      scale_y_continuous(
-        labels = function(x) x * 1e5
-      ) +
-      coord_cartesian(ylim = c(0, 20e-05))+
-      scale_color_discrete(labels = c("A", "B", "C", "D")) +
-      labs(x = "", y = "", color = "") +
-      theme(
-        plot.background = element_rect(color = "red", fill = NA, linewidth = 1),
-        legend.position = "inside",
-        legend.position.inside = c(0.85, 0.85),
-        legend.justification = c("left", "top"),
-        legend.key.height = unit(1.5, "lines"),
-        legend.background = element_blank(),
-        legend.key = element_blank(),
-        axis.text.x = element_text(angle = 90)
-      )
-
-    ggplot2::ggsave(
-      filename = out,
-      plot = p,
-      width = 10,
-      height = 10
-    )
-
-    out
-  }, format = "file"),
-
   tar_target(lc_mse_group_1_pdf, {
     out <- "figures/lc_mse_age_classes_group_1.pdf"
 
@@ -693,7 +609,7 @@ list(
       scale_y_continuous(
         labels = function(x) x * 1e5
       ) +
-      #coord_cartesian(ylim = c(0, 20e-05))+
+      coord_cartesian(ylim = c(0, 0.7e-05))+
       scale_color_discrete(labels = c("A", "B", "C", "D")) +
       labs(x = "", y = "", color = "") +
       theme(
@@ -765,7 +681,7 @@ list(
       scale_y_continuous(
         labels = function(x) x * 1e5
       ) +
-      #coord_cartesian(ylim = c(0, 20e-05))+
+      # coord_cartesian(ylim = c(0, 1.2e-05))+
       scale_color_discrete(labels = c("A", "B", "C", "D")) +
       labs(x = "", y = "", color = "") +
       theme(
@@ -972,7 +888,7 @@ list(
     )
 
     p <- p +
-
+      coord_cartesian(ylim = c(0.25, 1))+
       scale_color_discrete(labels = c("A", "B", "C", "D")) +
       labs(x = "", y = "", color = "") +
       theme(
@@ -1156,7 +1072,12 @@ list(
   tar_target(lc_msep_g3_app, {
     out <- sprintf("figures/lc_msep_%s_g3_appendix.pdf", msep_reference_age)
     write_msep_plot(lc_msep_results$groups[["3"]], out, ylim = msep_ylim_appendix)
-  }, format = "file")
+  }, format = "file"),
+  tarchetypes::tar_render(
+    report_html,
+    "report.Rmd"
+  )
+
 
 
 )

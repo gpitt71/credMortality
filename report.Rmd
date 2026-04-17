@@ -1,0 +1,562 @@
+---
+title: "credMortality manuscript report"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    df_print: paged
+params:
+  figures_dir: "figures"
+  output_dir: "output"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  out.width = "100%"
+)
+
+library(knitr)
+library(data.table)
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+has_targets <- requireNamespace("targets", quietly = TRUE)
+
+safe_tar_names <- function() {
+  if (!has_targets) {
+    return(character())
+  }
+
+  tryCatch(
+    targets::tar_meta(fields = "name")$name,
+    error = function(e) character()
+  )
+}
+
+pipeline_targets <- safe_tar_names()
+
+safe_tar_read <- function(name) {
+  if (!has_targets || !(name %in% pipeline_targets)) {
+    return(NULL)
+  }
+
+  tryCatch(
+    eval(bquote(targets::tar_read(.(as.name(name))))),
+    error = function(e) NULL
+  )
+}
+
+resolve_file <- function(target = NULL, path = NULL) {
+  if (!is.null(target)) {
+    x <- safe_tar_read(target)
+    if (is.character(x) && length(x) == 1 && file.exists(x)) {
+      return(x)
+    }
+  }
+
+  if (!is.null(path) && file.exists(path)) {
+    return(path)
+  }
+
+  NULL
+}
+
+file_status <- function(target = NULL, path = NULL) {
+  out <- resolve_file(target = target, path = path)
+  if (is.null(out)) "missing" else "available"
+}
+
+show_pdf <- function(path, height = 550) {
+  if (is.null(path)) {
+    cat("*Not available in the current working tree.*\n")
+    return(invisible(NULL))
+  }
+
+  if (knitr::is_html_output()) {
+    html <- sprintf(
+      paste0(
+        "<object data='%s' type='application/pdf' width='100%%' height='%spx'>",
+        "<p><a href='%s'>Open %s</a></p>",
+        "</object>"
+      ),
+      path,
+      height,
+      path,
+      basename(path)
+    )
+    return(knitr::asis_output(html))
+  }
+
+  knitr::include_graphics(path)
+}
+
+show_file_note <- function(target = NULL, path = NULL, note = NULL) {
+  out <- resolve_file(target = target, path = path)
+  if (is.null(out)) {
+    cat("Status: missing\n\n")
+  } else {
+    cat(sprintf("File: `%s`\n\n", out))
+  }
+  if (!is.null(note)) {
+    cat(note)
+    cat("\n")
+  }
+}
+
+build_mapping <- function(manuscript_location,
+                          manuscript_item,
+                          target = NA_character_,
+                          path = NA_character_,
+                          note = NA_character_) {
+  data.table(
+    manuscript_location = manuscript_location,
+    manuscript_item = manuscript_item,
+    target = target,
+    path = path,
+    status = file_status(
+      target = if (is.na(target)) NULL else target,
+      path = if (is.na(path)) NULL else path
+    ),
+    note = note
+  )
+}
+
+mapping_dt <- rbindlist(list(
+  build_mapping("Section 4.3.1 / Figure 2a", "Estimated sub-population effects", "fig2a_pdf", file.path(params$figures_dir, "lc_allthetas_zs.pdf")),
+  build_mapping("Section 4.3.1 / Figure 2b", "Estimated variances", "fig2b_pdf", file.path(params$figures_dir, "lc_variances.pdf")),
+  build_mapping("Section 4.3.1 / Figure 2c", "Credibility weights", "fig2c_pdf", file.path(params$figures_dir, "lc_simulation_zs.pdf")),
+  build_mapping("Section 4.3.1 / Figure 2d", "Log mortality by age", "fig2d_pdf", file.path(params$figures_dir, "lc_log_mortality_rates.pdf")),
+
+  build_mapping("Section 4.3.2 / Figure 3a", "Sub-population 1, age 15", "additional_analysis_2_15_pdf", file.path(params$figures_dir, "an215.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3b", "Sub-population 1, age 55", "additional_analysis_2_55_pdf", file.path(params$figures_dir, "an255.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3c", "Sub-population 1, age 80", "additional_analysis_2_80_pdf", file.path(params$figures_dir, "an280.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3d", "Sub-population 2, age 15", "additional_analysis_3_15_pdf", file.path(params$figures_dir, "an315.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3e", "Sub-population 2, age 55", "additional_analysis_3_55_pdf", file.path(params$figures_dir, "an355.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3f", "Sub-population 2, age 80", "additional_analysis_3_80_pdf", file.path(params$figures_dir, "an380.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3g", "Sub-population 3, age 15", "additional_analysis_1_15_pdf", file.path(params$figures_dir, "an115.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3h", "Sub-population 3, age 55", "additional_analysis_1_55_pdf", file.path(params$figures_dir, "an155.pdf")),
+  build_mapping("Section 4.3.2 / Figure 3i", "Sub-population 3, age 80", "additional_analysis_1_80_pdf", file.path(params$figures_dir, "an180.pdf")),
+
+  build_mapping("Section 4.3.3 / Figure 4a", "MSEP fan plot, Sub-population 1", "lc_msep_g2_pdf", file.path(params$figures_dir, "lc_msep_55_g2.pdf")),
+  build_mapping("Section 4.3.3 / Figure 4b", "MSEP fan plot, Sub-population 2", "lc_msep_g3_pdf", file.path(params$figures_dir, "lc_msep_55_g3.pdf")),
+  build_mapping("Section 4.3.3 / Figure 4c", "MSEP fan plot, Sub-population 3", "lc_msep_g1_pdf", file.path(params$figures_dir, "lc_msep_55_g1.pdf")),
+
+  build_mapping("Section 4.4.2 / Figure 6a", "Rolling-window MSE, Sub-population 1", "lc_mse_group_2_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_2.pdf")),
+  build_mapping("Section 4.4.2 / Figure 6b", "Rolling-window deviance, Sub-population 1", "lc_deviance_group_2_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_2.pdf")),
+  build_mapping("Section 4.4.2 / Figure 6c", "Rolling-window MSE, Sub-population 2", "lc_mse_group_3_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_3.pdf")),
+  build_mapping("Section 4.4.2 / Figure 6d", "Rolling-window deviance, Sub-population 2", "lc_deviance_group_3_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_3.pdf")),
+  build_mapping("Section 4.4.2 / Figure 6e", "Rolling-window MSE, Sub-population 3", "lc_mse_group_1_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_1.pdf")),
+  build_mapping("Section 4.4.2 / Figure 6f", "Rolling-window deviance, Sub-population 3", "lc_deviance_group_1_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_1.pdf")),
+
+  build_mapping("Appendix B.3 / Figure 7a", "Mortality-trend panel (left panel only)", "fig6_pdf", file.path(params$figures_dir, "mortality_rates_simulation.pdf"), "The right panel of Figure 7 is a manuscript-side Lexis diagram and is not generated by the R pipeline."),
+
+  build_mapping("Appendix B.4 / Figure 8a", "Comparable-scale MSEP, Sub-population 1", "lc_msep_g2_app", file.path(params$figures_dir, "lc_msep_55_g2_appendix.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 8b", "Comparable-scale MSEP, Sub-population 2", "lc_msep_g3_app", file.path(params$figures_dir, "lc_msep_55_g3_appendix.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 8c", "Comparable-scale MSEP, Sub-population 3", "lc_msep_g1_app", file.path(params$figures_dir, "lc_msep_55_g1_appendix.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+
+  build_mapping("Appendix B.4 / Figure 9a", "Comparable-scale rolling-window MSE, Sub-population 1", "lc_mse_group_2_app", file.path(params$figures_dir, "lc_mse_age_classes_group_2_app.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 9b", "Comparable-scale rolling-window deviance, Sub-population 1", "lc_deviance_group_2_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_2_app.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 9c", "Comparable-scale rolling-window MSE, Sub-population 2", "lc_mse_group_3_app", file.path(params$figures_dir, "lc_mse_age_classes_group_3_app.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 9d", "Comparable-scale rolling-window deviance, Sub-population 2", "lc_deviance_group_3_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_3_app.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 9e", "Comparable-scale rolling-window MSE, Sub-population 3", "lc_mse_group_1_app", file.path(params$figures_dir, "lc_mse_age_classes_group_1_app.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+  build_mapping("Appendix B.4 / Figure 9f", "Comparable-scale rolling-window deviance, Sub-population 3", "lc_deviance_group_1_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_1_app.pdf"), "Listed in the manuscript appendix but not defined in the current `_targets.R`."),
+
+  build_mapping("Saved result file", "Rolling-window aggregated results", "sim_age_bracket_results_file", file.path(params$output_dir, "results_age_breakets_smooth.csv")),
+  build_mapping("Saved result file", "MSEP study object", "lc_msep_results_file", file.path(params$output_dir, "lc_msep_results.rds")),
+  build_mapping("Shipped auxiliary file", "Convergence summary for separate models", NA_character_, file.path(params$output_dir, "convergence_separate_population_models.csv"), "Shipped with the supplement but not regenerated by the current `_targets.R`."),
+  build_mapping("Manual manuscript element", "Figure 1, Figure 5, Figure 7b, and Table 1", NA_character_, NA_character_, "These are manuscript-side elements or tables not directly produced by the current R pipeline.")
+), fill = TRUE)
+
+results_csv <- resolve_file("sim_age_bracket_results_file", file.path(params$output_dir, "results_age_breakets_smooth.csv"))
+msep_rds <- resolve_file("lc_msep_results_file", file.path(params$output_dir, "lc_msep_results.rds"))
+conv_csv <- resolve_file(path = file.path(params$output_dir, "convergence_separate_population_models.csv"))
+
+results_dt <- if (!is.null(results_csv)) fread(results_csv) else NULL
+msep_obj <- if (!is.null(msep_rds)) readRDS(msep_rds) else NULL
+conv_dt <- if (!is.null(conv_csv)) fread(conv_csv) else NULL
+```
+
+# Purpose of this report
+
+This report is aligned to the current manuscript structure in the submitted PDF.
+
+It follows the manuscript section-by-section and figure-by-figure, with the code-generated outputs organised under:
+
+- Section 4.3.1 / Figure 2
+- Section 4.3.2 / Figure 3
+- Section 4.3.3 / Figure 4
+- Section 4.4.2 / Figure 6
+- Appendix B.3 / Figure 7a
+- Appendix B.4 / Figures 8 and 9
+
+The super-population rolling-window MSE and deviance panels are intentionally omitted here because they are no longer part of the current manuscript, even though legacy targets for those files may still exist in `_targets.R`.
+
+For routine replication checks, this file can usually be read directly together with the shipped `figures/`, `output/`, and `_targets/` contents, without deleting the cache and rerunning the full pipeline.
+
+# Manuscript-linked inventory
+
+```{r}
+kable(mapping_dt, align = c("l", "l", "l", "l", "l", "l"))
+```
+
+```{r}
+summary_dt <- mapping_dt[, .(
+  n_items = .N,
+  n_available = sum(status == "available"),
+  n_missing = sum(status == "missing")
+), by = manuscript_location]
+
+kable(summary_dt, align = "lrrr")
+```
+
+# Section 4.3.1 — Figure 2: estimation of components in the credibility model
+
+The manuscript states that Section 4.3.1 discusses the estimated sub-population effects, their estimated variances, the credibility weights, and the resulting age profile of the predicted mortality rates.
+
+## Figure 2a — Estimated sub-population effects
+
+```{r}
+show_file_note("fig2a_pdf", file.path(params$figures_dir, "lc_allthetas_zs.pdf"))
+show_pdf(resolve_file("fig2a_pdf", file.path(params$figures_dir, "lc_allthetas_zs.pdf")))
+```
+
+## Figure 2b — Estimated variances
+
+```{r}
+show_file_note("fig2b_pdf", file.path(params$figures_dir, "lc_variances.pdf"))
+show_pdf(resolve_file("fig2b_pdf", file.path(params$figures_dir, "lc_variances.pdf")))
+```
+
+## Figure 2c — Credibility weights
+
+```{r}
+show_file_note("fig2c_pdf", file.path(params$figures_dir, "lc_simulation_zs.pdf"))
+show_pdf(resolve_file("fig2c_pdf", file.path(params$figures_dir, "lc_simulation_zs.pdf")))
+```
+
+## Figure 2d — Log mortality by age
+
+```{r}
+show_file_note("fig2d_pdf", file.path(params$figures_dir, "lc_log_mortality_rates.pdf"))
+show_pdf(resolve_file("fig2d_pdf", file.path(params$figures_dir, "lc_log_mortality_rates.pdf")))
+```
+
+# Section 4.3.2 — Figure 3: including more calendar years in the data
+
+The manuscript uses Figure 3 to show how the credibility predictor changes as more sample years are added, with rows corresponding to sub-populations 1–3 and columns corresponding to ages 15, 55, and 80.
+
+## Sub-population 1
+
+### Figure 3a — Age 15
+
+```{r}
+show_file_note("additional_analysis_2_15_pdf", file.path(params$figures_dir, "an215.pdf"))
+show_pdf(resolve_file("additional_analysis_2_15_pdf", file.path(params$figures_dir, "an215.pdf")), height = 480)
+```
+
+### Figure 3b — Age 55
+
+```{r}
+show_file_note("additional_analysis_2_55_pdf", file.path(params$figures_dir, "an255.pdf"))
+show_pdf(resolve_file("additional_analysis_2_55_pdf", file.path(params$figures_dir, "an255.pdf")), height = 480)
+```
+
+### Figure 3c — Age 80
+
+```{r}
+show_file_note("additional_analysis_2_80_pdf", file.path(params$figures_dir, "an280.pdf"))
+show_pdf(resolve_file("additional_analysis_2_80_pdf", file.path(params$figures_dir, "an280.pdf")), height = 480)
+```
+
+## Sub-population 2
+
+### Figure 3d — Age 15
+
+```{r}
+show_file_note("additional_analysis_3_15_pdf", file.path(params$figures_dir, "an315.pdf"))
+show_pdf(resolve_file("additional_analysis_3_15_pdf", file.path(params$figures_dir, "an315.pdf")), height = 480)
+```
+
+### Figure 3e — Age 55
+
+```{r}
+show_file_note("additional_analysis_3_55_pdf", file.path(params$figures_dir, "an355.pdf"))
+show_pdf(resolve_file("additional_analysis_3_55_pdf", file.path(params$figures_dir, "an355.pdf")), height = 480)
+```
+
+### Figure 3f — Age 80
+
+```{r}
+show_file_note("additional_analysis_3_80_pdf", file.path(params$figures_dir, "an380.pdf"))
+show_pdf(resolve_file("additional_analysis_3_80_pdf", file.path(params$figures_dir, "an380.pdf")), height = 480)
+```
+
+## Sub-population 3
+
+### Figure 3g — Age 15
+
+```{r}
+show_file_note("additional_analysis_1_15_pdf", file.path(params$figures_dir, "an115.pdf"))
+show_pdf(resolve_file("additional_analysis_1_15_pdf", file.path(params$figures_dir, "an115.pdf")), height = 480)
+```
+
+### Figure 3h — Age 55
+
+```{r}
+show_file_note("additional_analysis_1_55_pdf", file.path(params$figures_dir, "an155.pdf"))
+show_pdf(resolve_file("additional_analysis_1_55_pdf", file.path(params$figures_dir, "an155.pdf")), height = 480)
+```
+
+### Figure 3i — Age 80
+
+```{r}
+show_file_note("additional_analysis_1_80_pdf", file.path(params$figures_dir, "an180.pdf"))
+show_pdf(resolve_file("additional_analysis_1_80_pdf", file.path(params$figures_dir, "an180.pdf")), height = 480)
+```
+
+# Section 4.3.3 — Figure 4: mean squared error of prediction
+
+The manuscript uses Figure 4 for the MSEP comparison at age 55 over a five-year horizon, with panels for sub-populations 1–3.
+
+## Figure 4a — Sub-population 1
+
+```{r}
+show_file_note("lc_msep_g2_pdf", file.path(params$figures_dir, "lc_msep_55_g2.pdf"))
+show_pdf(resolve_file("lc_msep_g2_pdf", file.path(params$figures_dir, "lc_msep_55_g2.pdf")))
+```
+
+## Figure 4b — Sub-population 2
+
+```{r}
+show_file_note("lc_msep_g3_pdf", file.path(params$figures_dir, "lc_msep_55_g3.pdf"))
+show_pdf(resolve_file("lc_msep_g3_pdf", file.path(params$figures_dir, "lc_msep_55_g3.pdf")))
+```
+
+## Figure 4c — Sub-population 3
+
+```{r}
+show_file_note("lc_msep_g1_pdf", file.path(params$figures_dir, "lc_msep_55_g1.pdf"))
+show_pdf(resolve_file("lc_msep_g1_pdf", file.path(params$figures_dir, "lc_msep_55_g1.pdf")))
+```
+
+# Section 4.4.2 — Figure 6: out-of-sample performance across repeated simulations
+
+The current manuscript uses Figure 6 for the rolling-window out-of-sample performance plots. Only the sub-population panels are part of the current manuscript version.
+
+## Sub-population 1
+
+### Figure 6a — MSE
+
+```{r}
+show_file_note("lc_mse_group_2_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_2.pdf"))
+show_pdf(resolve_file("lc_mse_group_2_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_2.pdf")))
+```
+
+### Figure 6b — Deviance
+
+```{r}
+show_file_note("lc_deviance_group_2_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_2.pdf"))
+show_pdf(resolve_file("lc_deviance_group_2_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_2.pdf")))
+```
+
+## Sub-population 2
+
+### Figure 6c — MSE
+
+```{r}
+show_file_note("lc_mse_group_3_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_3.pdf"))
+show_pdf(resolve_file("lc_mse_group_3_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_3.pdf")))
+```
+
+### Figure 6d — Deviance
+
+```{r}
+show_file_note("lc_deviance_group_3_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_3.pdf"))
+show_pdf(resolve_file("lc_deviance_group_3_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_3.pdf")))
+```
+
+## Sub-population 3
+
+### Figure 6e — MSE
+
+```{r}
+show_file_note("lc_mse_group_1_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_1.pdf"))
+show_pdf(resolve_file("lc_mse_group_1_pdf", file.path(params$figures_dir, "lc_mse_age_classes_group_1.pdf")))
+```
+
+### Figure 6f — Deviance
+
+```{r}
+show_file_note("lc_deviance_group_1_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_1.pdf"))
+show_pdf(resolve_file("lc_deviance_group_1_pdf", file.path(params$figures_dir, "lc_deviance_age_classes_group_1.pdf")))
+```
+
+# Appendix B.3 — Figure 7
+
+The code supplement only generates the left panel of Figure 7.
+
+## Figure 7a — Mortality-trend panel
+
+```{r}
+show_file_note(
+  "fig6_pdf",
+  file.path(params$figures_dir, "mortality_rates_simulation.pdf"),
+  note = "This corresponds to Figure 7a in the manuscript. Figure 7b is a manuscript-side Lexis diagram and is not a pipeline output."
+)
+show_pdf(resolve_file("fig6_pdf", file.path(params$figures_dir, "mortality_rates_simulation.pdf")))
+```
+
+# Appendix B.4 — Figure 8: Figure 4 on comparable scales
+
+The manuscript appendix reports Figure 8 as the common-scale version of the Figure 4 MSEP fan plots. These appendix files are shown if present. If they are missing, that means they are referenced in the manuscript but are not currently produced by the present `_targets.R`.
+
+## Figure 8a — Sub-population 1
+
+```{r}
+show_file_note("lc_msep_g2_app", file.path(params$figures_dir, "lc_msep_55_g2_appendix.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_msep_g2_app", file.path(params$figures_dir, "lc_msep_55_g2_appendix.pdf")))
+```
+
+## Figure 8b — Sub-population 2
+
+```{r}
+show_file_note("lc_msep_g3_app", file.path(params$figures_dir, "lc_msep_55_g3_appendix.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_msep_g3_app", file.path(params$figures_dir, "lc_msep_55_g3_appendix.pdf")))
+```
+
+## Figure 8c — Sub-population 3
+
+```{r}
+show_file_note("lc_msep_g1_app", file.path(params$figures_dir, "lc_msep_55_g1_appendix.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_msep_g1_app", file.path(params$figures_dir, "lc_msep_55_g1_appendix.pdf")))
+```
+
+# Appendix B.4 — Figure 9: Figure 6 on comparable scales
+
+The manuscript appendix reports Figure 9 as the common-scale version of the Figure 6 rolling-window plots. As above, the appendix files are shown if present and otherwise flagged as absent from the current `_targets.R`.
+
+## Sub-population 1
+
+### Figure 9a — MSE
+
+```{r}
+show_file_note("lc_mse_group_2_app", file.path(params$figures_dir, "lc_mse_age_classes_group_2_app.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_mse_group_2_app", file.path(params$figures_dir, "lc_mse_age_classes_group_2_app.pdf")))
+```
+
+### Figure 9b — Deviance
+
+```{r}
+show_file_note("lc_deviance_group_2_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_2_app.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_deviance_group_2_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_2_app.pdf")))
+```
+
+## Sub-population 2
+
+### Figure 9c — MSE
+
+```{r}
+show_file_note("lc_mse_group_3_app", file.path(params$figures_dir, "lc_mse_age_classes_group_3_app.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_mse_group_3_app", file.path(params$figures_dir, "lc_mse_age_classes_group_3_app.pdf")))
+```
+
+### Figure 9d — Deviance
+
+```{r}
+show_file_note("lc_deviance_group_3_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_3_app.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_deviance_group_3_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_3_app.pdf")))
+```
+
+## Sub-population 3
+
+### Figure 9e — MSE
+
+```{r}
+show_file_note("lc_mse_group_1_app", file.path(params$figures_dir, "lc_mse_age_classes_group_1_app.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_mse_group_1_app", file.path(params$figures_dir, "lc_mse_age_classes_group_1_app.pdf")))
+```
+
+### Figure 9f — Deviance
+
+```{r}
+show_file_note("lc_deviance_group_1_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_1_app.pdf"), note = "Appendix target not currently defined in `_targets.R`.")
+show_pdf(resolve_file("lc_deviance_group_1_app", file.path(params$figures_dir, "lc_deviance_age_classes_group_1_app.pdf")))
+```
+
+# Saved outputs and manuscript table support
+
+## `output/results_age_breakets_smooth.csv`
+
+```{r}
+if (is.null(results_dt)) {
+  cat("`output/results_age_breakets_smooth.csv` is not available.\n")
+} else {
+  cat(sprintf("File: `%s`\n\n", results_csv))
+  overview <- data.table(
+    n_rows = nrow(results_dt),
+    n_predictors = uniqueN(results_dt$predictor),
+    n_models = uniqueN(results_dt$model),
+    n_seeds = uniqueN(results_dt$seed_ix),
+    n_rolls = uniqueN(results_dt$years_ix),
+    n_age_brackets = uniqueN(results_dt$age_breakets)
+  )
+  kable(overview)
+  kable(head(results_dt, 12))
+}
+```
+
+## Reconstructing the average BIC values used in Table 1
+
+```{r}
+if (is.null(results_dt)) {
+  cat("BIC reconstruction is unavailable because `output/results_age_breakets_smooth.csv` is missing.\n")
+} else {
+  bic_dt <- unique(results_dt[, .(predictor, seed_ix, years_ix, bic)])
+  bic_summary <- bic_dt[, .(
+    average_bic = mean(bic),
+    average_bic_div_1000 = mean(bic) / 1000
+  ), by = predictor][order(average_bic)]
+
+  kable(bic_summary)
+}
+```
+
+## `output/lc_msep_results.rds`
+
+```{r}
+if (is.null(msep_obj)) {
+  cat("`output/lc_msep_results.rds` is not available.\n")
+} else {
+  cat(sprintf("File: `%s`\n\n", msep_rds))
+  obj_summary <- data.table(
+    predictor = msep_obj$predictor %||% NA_character_,
+    reference_age = msep_obj$reference_age %||% NA_integer_,
+    forecasting_horizon = msep_obj$forecasting_horizon %||% NA_integer_,
+    n_groups = length(msep_obj$groups)
+  )
+  kable(obj_summary)
+}
+```
+
+## `output/convergence_separate_population_models.csv`
+
+```{r}
+if (is.null(conv_dt)) {
+  cat("`output/convergence_separate_population_models.csv` is not available.\n")
+} else {
+  cat(sprintf("File: `%s`\n\n", conv_csv))
+  kable(head(conv_dt, 12))
+}
+```
+
+# Notes
+
+- This report is intentionally manuscript-aligned rather than target-name-aligned.
+- Some target names are legacy names from earlier drafting stages. The report keeps the manuscript numbering first and the target names second.
+- The super-population rolling-window MSE and deviance files are not displayed here because they are not part of the current manuscript.
+- If appendix files for Figures 8 and 9 are later added to the pipeline, this report will display them automatically as long as the file paths match the names used above.

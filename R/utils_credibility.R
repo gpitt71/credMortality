@@ -1658,24 +1658,20 @@ weights_plotter <- function(credibility_model,
                             ages_breaks = c(50, 60, 70, 80, 90)) {
   tmp <- credibility_model[[predictor]]
 
-
-
-  # Build long table of all Z_i columns stacked in i = 1..N_groups order,
-  # and within each i keep the original vector order.
   dt_Zs <- rbindlist(lapply(1:N_groups, function(i) {
     wname <- paste0("Z_", i)
-    data.table(Zs = 1 - tmp[[wname]],
-               label = wname,
-               ages.code = ages_fit)
+    data.table(
+      zhat = 1 - tmp[[wname]],
+      label = wname,
+      ages.code = ages_fit
+    )
   }), use.names = TRUE)
 
-  # Match original factor(levels=...) exactly
   dt_Zs[, label := factor(label, levels = c("Z_2", "Z_3", "Z_1"))]
 
   text_size <- 28
 
-  # Keep ggplot part unchanged (ggplot works fine with data.table)
-  ggplot(data = dt_Zs, aes(x = ages.code, y = Zs)) +
+  ggplot(data = dt_Zs, aes(x = ages.code, y = zhat)) +
     geom_point(aes(colour = label), size = 3, alpha = .7) +
     theme_bw() +
     scale_x_continuous(breaks = ages_breaks) +
@@ -1688,7 +1684,19 @@ weights_plotter <- function(credibility_model,
     ) +
     ylab("") +
     xlab("") +
-    labs(color = "")
+    labs(color = "") +
+    scale_color_manual(
+      values = c(
+        "Z_2" = "#4169E1",
+        "Z_3" = "#006400",
+        "Z_1" = "#a71429"
+      ),
+      labels = c(
+        expression(hat(z)[x]^1),
+        expression(hat(z)[x]^2),
+        expression(hat(z)[x]^3)
+      )
+    )
 }
 #' all_thetas_plotter
 #'
