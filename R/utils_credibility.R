@@ -334,9 +334,7 @@ fit_and_predict_credibility_models <- function(data,
 
     }
 
-    # observed_rates[['full_pp_data']] <- data_pp_2
-    # out[['actual_data']] <- observed_rates
-    # out[[model_option]] <- l
+
 
     observed_rates[['pre_processed_data_forecasting']] <- data_pp_2
     out[['actual_data']] <- observed_rates

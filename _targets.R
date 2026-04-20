@@ -537,7 +537,7 @@ list(
       scale_y_continuous(
         labels = function(x) x * 1e5
       ) +
-      #coord_cartesian(ylim = c(0, 20e-05))+
+      coord_cartesian(ylim = c(0, .02e-05))+
       scale_color_discrete(labels = c("A", "B", "C", "D")) +
       labs(x = "", y = "", color = "") +
       theme(
@@ -609,7 +609,7 @@ list(
       scale_y_continuous(
         labels = function(x) x * 1e5
       ) +
-      coord_cartesian(ylim = c(0, 0.7e-05))+
+      coord_cartesian(ylim = c(0, 0.1e-05))+
       scale_color_discrete(labels = c("A", "B", "C", "D")) +
       labs(x = "", y = "", color = "") +
       theme(
@@ -681,7 +681,7 @@ list(
       scale_y_continuous(
         labels = function(x) x * 1e5
       ) +
-      # coord_cartesian(ylim = c(0, 1.2e-05))+
+      coord_cartesian(ylim = c(0, 2.5e-05))+
       scale_color_discrete(labels = c("A", "B", "C", "D")) +
       labs(x = "", y = "", color = "") +
       theme(
