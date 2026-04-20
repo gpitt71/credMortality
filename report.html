@@ -11,7 +11,7 @@
 
 
 
-<title>credMortality reproducibility report</title>
+<title>credMortality manuscript report</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1619,215 +1619,187 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">credMortality reproducibility report</h1>
+<h1 class="title toc-ignore">credMortality manuscript report</h1>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#overview" id="toc-overview">Overview</a></li>
-<li><a href="#availability-summary" id="toc-availability-summary">Availability summary</a></li>
-<li><a href="#credibility-illustration-on-one-simulated-data-set" id="toc-credibility-illustration-on-one-simulated-data-set">7.1
-Credibility illustration on one simulated data set</a>
+<li><a href="#purpose-of-this-report" id="toc-purpose-of-this-report">Purpose of this report</a></li>
+<li><a href="#manuscript-linked-inventory" id="toc-manuscript-linked-inventory">Manuscript-linked
+inventory</a></li>
+<li><a href="#section-4.3.1-figure-2-estimation-of-components-in-the-credibility-model" id="toc-section-4.3.1-figure-2-estimation-of-components-in-the-credibility-model">Section
+4.3.1 — Figure 2: estimation of components in the credibility model</a>
 <ul>
-<li><a href="#estimated-sub-population-effects" id="toc-estimated-sub-population-effects">Estimated sub-population
-effects</a></li>
-<li><a href="#estimated-variances" id="toc-estimated-variances">Estimated variances</a></li>
-<li><a href="#credibility-weights" id="toc-credibility-weights">Credibility weights</a></li>
-<li><a href="#log-mortality-by-age" id="toc-log-mortality-by-age">Log
-mortality by age</a></li>
+<li><a href="#figure-2a-estimated-sub-population-effects" id="toc-figure-2a-estimated-sub-population-effects">Figure 2a —
+Estimated sub-population effects</a></li>
+<li><a href="#figure-2b-estimated-variances" id="toc-figure-2b-estimated-variances">Figure 2b — Estimated
+variances</a></li>
+<li><a href="#figure-2c-credibility-weights" id="toc-figure-2c-credibility-weights">Figure 2c — Credibility
+weights</a></li>
+<li><a href="#figure-2d-log-mortality-by-age" id="toc-figure-2d-log-mortality-by-age">Figure 2d — Log mortality by
+age</a></li>
 </ul></li>
-<li><a href="#sample-size-effect-grid" id="toc-sample-size-effect-grid">7.2 Sample-size effect grid</a>
+<li><a href="#section-4.3.2-figure-3-including-more-calendar-years-in-the-data" id="toc-section-4.3.2-figure-3-including-more-calendar-years-in-the-data">Section
+4.3.2 — Figure 3: including more calendar years in the data</a>
 <ul>
 <li><a href="#sub-population-1" id="toc-sub-population-1">Sub-population
 1</a>
 <ul>
-<li><a href="#age-15" id="toc-age-15">Age 15</a></li>
-<li><a href="#age-55" id="toc-age-55">Age 55</a></li>
-<li><a href="#age-80" id="toc-age-80">Age 80</a></li>
+<li><a href="#figure-3a-age-15" id="toc-figure-3a-age-15">Figure 3a —
+Age 15</a></li>
+<li><a href="#figure-3b-age-55" id="toc-figure-3b-age-55">Figure 3b —
+Age 55</a></li>
+<li><a href="#figure-3c-age-80" id="toc-figure-3c-age-80">Figure 3c —
+Age 80</a></li>
 </ul></li>
 <li><a href="#sub-population-2" id="toc-sub-population-2">Sub-population
 2</a>
 <ul>
-<li><a href="#age-15-1" id="toc-age-15-1">Age 15</a></li>
-<li><a href="#age-55-1" id="toc-age-55-1">Age 55</a></li>
-<li><a href="#age-80-1" id="toc-age-80-1">Age 80</a></li>
+<li><a href="#figure-3d-age-15" id="toc-figure-3d-age-15">Figure 3d —
+Age 15</a></li>
+<li><a href="#figure-3e-age-55" id="toc-figure-3e-age-55">Figure 3e —
+Age 55</a></li>
+<li><a href="#figure-3f-age-80" id="toc-figure-3f-age-80">Figure 3f —
+Age 80</a></li>
 </ul></li>
 <li><a href="#sub-population-3" id="toc-sub-population-3">Sub-population
 3</a>
 <ul>
-<li><a href="#age-15-2" id="toc-age-15-2">Age 15</a></li>
-<li><a href="#age-55-2" id="toc-age-55-2">Age 55</a></li>
-<li><a href="#age-80-2" id="toc-age-80-2">Age 80</a></li>
+<li><a href="#figure-3g-age-15" id="toc-figure-3g-age-15">Figure 3g —
+Age 15</a></li>
+<li><a href="#figure-3h-age-55" id="toc-figure-3h-age-55">Figure 3h —
+Age 55</a></li>
+<li><a href="#figure-3i-age-80" id="toc-figure-3i-age-80">Figure 3i —
+Age 80</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#msep-fan-plots" id="toc-msep-fan-plots">7.3 MSEP fan
-plots</a>
+<li><a href="#section-4.3.3-figure-4-mean-squared-error-of-prediction" id="toc-section-4.3.3-figure-4-mean-squared-error-of-prediction">Section
+4.3.3 — Figure 4: mean squared error of prediction</a>
 <ul>
-<li><a href="#sub-population-1-1" id="toc-sub-population-1-1">Sub-population 1</a></li>
-<li><a href="#sub-population-2-1" id="toc-sub-population-2-1">Sub-population 2</a></li>
-<li><a href="#sub-population-3-1" id="toc-sub-population-3-1">Sub-population 3</a></li>
+<li><a href="#figure-4a-sub-population-1" id="toc-figure-4a-sub-population-1">Figure 4a — Sub-population
+1</a></li>
+<li><a href="#figure-4b-sub-population-2" id="toc-figure-4b-sub-population-2">Figure 4b — Sub-population
+2</a></li>
+<li><a href="#figure-4c-sub-population-3" id="toc-figure-4c-sub-population-3">Figure 4c — Sub-population
+3</a></li>
 </ul></li>
-<li><a href="#appendix-msep-fan-plots-on-comparable-scales" id="toc-appendix-msep-fan-plots-on-comparable-scales">7.4 Appendix MSEP
-fan plots on comparable scales</a>
+<li><a href="#section-4.4.2-figure-6-out-of-sample-performance-across-repeated-simulations" id="toc-section-4.4.2-figure-6-out-of-sample-performance-across-repeated-simulations">Section
+4.4.2 — Figure 6: out-of-sample performance across repeated
+simulations</a>
 <ul>
-<li><a href="#sub-population-1-2" id="toc-sub-population-1-2">Sub-population 1</a></li>
-<li><a href="#sub-population-2-2" id="toc-sub-population-2-2">Sub-population 2</a></li>
-<li><a href="#sub-population-3-2" id="toc-sub-population-3-2">Sub-population 3</a></li>
-</ul></li>
-<li><a href="#rolling-window-mse" id="toc-rolling-window-mse">7.5
-Rolling-window MSE</a>
+<li><a href="#sub-population-1-1" id="toc-sub-population-1-1">Sub-population 1</a>
 <ul>
-<li><a href="#super-population-mse" id="toc-super-population-mse">Super-population, MSE</a></li>
-<li><a href="#sub-population-1-mse" id="toc-sub-population-1-mse">Sub-population 1, MSE</a></li>
-<li><a href="#sub-population-2-mse" id="toc-sub-population-2-mse">Sub-population 2, MSE</a></li>
-<li><a href="#sub-population-3-mse" id="toc-sub-population-3-mse">Sub-population 3, MSE</a></li>
+<li><a href="#figure-6a-mse" id="toc-figure-6a-mse">Figure 6a —
+MSE</a></li>
+<li><a href="#figure-6b-deviance" id="toc-figure-6b-deviance">Figure 6b
+— Deviance</a></li>
 </ul></li>
-<li><a href="#rolling-window-deviance" id="toc-rolling-window-deviance">7.6 Rolling-window deviance</a>
+<li><a href="#sub-population-2-1" id="toc-sub-population-2-1">Sub-population 2</a>
 <ul>
-<li><a href="#super-population-deviance" id="toc-super-population-deviance">Super-population, deviance</a></li>
-<li><a href="#sub-population-1-deviance" id="toc-sub-population-1-deviance">Sub-population 1, deviance</a></li>
-<li><a href="#sub-population-2-deviance" id="toc-sub-population-2-deviance">Sub-population 2, deviance</a></li>
-<li><a href="#sub-population-3-deviance" id="toc-sub-population-3-deviance">Sub-population 3, deviance</a></li>
+<li><a href="#figure-6c-mse" id="toc-figure-6c-mse">Figure 6c —
+MSE</a></li>
+<li><a href="#figure-6d-deviance" id="toc-figure-6d-deviance">Figure 6d
+— Deviance</a></li>
 </ul></li>
-<li><a href="#appendix-rolling-window-mse-on-comparable-scales" id="toc-appendix-rolling-window-mse-on-comparable-scales">7.7 Appendix
-rolling-window MSE on comparable scales</a>
+<li><a href="#sub-population-3-1" id="toc-sub-population-3-1">Sub-population 3</a>
 <ul>
-<li><a href="#super-population-mse-1" id="toc-super-population-mse-1">Super-population, MSE</a></li>
-<li><a href="#sub-population-1-mse-1" id="toc-sub-population-1-mse-1">Sub-population 1, MSE</a></li>
-<li><a href="#sub-population-2-mse-1" id="toc-sub-population-2-mse-1">Sub-population 2, MSE</a></li>
-<li><a href="#sub-population-3-mse-1" id="toc-sub-population-3-mse-1">Sub-population 3, MSE</a></li>
+<li><a href="#figure-6e-mse" id="toc-figure-6e-mse">Figure 6e —
+MSE</a></li>
+<li><a href="#figure-6f-deviance" id="toc-figure-6f-deviance">Figure 6f
+— Deviance</a></li>
 </ul></li>
-<li><a href="#appendix-rolling-window-deviance-on-comparable-scales" id="toc-appendix-rolling-window-deviance-on-comparable-scales">7.8
-Appendix rolling-window deviance on comparable scales</a>
+</ul></li>
+<li><a href="#appendix-b.3-figure-7" id="toc-appendix-b.3-figure-7">Appendix B.3 — Figure 7</a>
 <ul>
-<li><a href="#super-population-deviance-1" id="toc-super-population-deviance-1">Super-population, deviance</a></li>
-<li><a href="#sub-population-1-deviance-1" id="toc-sub-population-1-deviance-1">Sub-population 1, deviance</a></li>
-<li><a href="#sub-population-2-deviance-1" id="toc-sub-population-2-deviance-1">Sub-population 2, deviance</a></li>
-<li><a href="#sub-population-3-deviance-1" id="toc-sub-population-3-deviance-1">Sub-population 3, deviance</a></li>
+<li><a href="#figure-7a-mortality-trend-panel" id="toc-figure-7a-mortality-trend-panel">Figure 7a — Mortality-trend
+panel</a></li>
 </ul></li>
-<li><a href="#appendix-lexis-figure-left-panel" id="toc-appendix-lexis-figure-left-panel">7.9 Appendix Lexis figure:
-left panel</a></li>
-<li><a href="#saved-result-files" id="toc-saved-result-files">Saved
-result files</a>
+<li><a href="#appendix-b.4-figure-8-figure-4-on-comparable-scales" id="toc-appendix-b.4-figure-8-figure-4-on-comparable-scales">Appendix
+B.4 — Figure 8: Figure 4 on comparable scales</a>
 <ul>
-<li><a href="#rolling-window-aggregated-results" id="toc-rolling-window-aggregated-results">Rolling-window aggregated
-results</a></li>
-<li><a href="#msep-study-object" id="toc-msep-study-object">MSEP study
-object</a></li>
-<li><a href="#convergence-file-shipped-with-supplement" id="toc-convergence-file-shipped-with-supplement">Convergence file
-shipped with supplement</a></li>
+<li><a href="#figure-8a-sub-population-1" id="toc-figure-8a-sub-population-1">Figure 8a — Sub-population
+1</a></li>
+<li><a href="#figure-8b-sub-population-2" id="toc-figure-8b-sub-population-2">Figure 8b — Sub-population
+2</a></li>
+<li><a href="#figure-8c-sub-population-3" id="toc-figure-8c-sub-population-3">Figure 8c — Sub-population
+3</a></li>
 </ul></li>
-<li><a href="#table-reconstructed-average-bic-values" id="toc-table-reconstructed-average-bic-values">Table: reconstructed
-average BIC values</a></li>
-<li><a href="#session-information" id="toc-session-information">Session
-information</a></li>
+<li><a href="#appendix-b.4-figure-9-figure-6-on-comparable-scales" id="toc-appendix-b.4-figure-9-figure-6-on-comparable-scales">Appendix
+B.4 — Figure 9: Figure 6 on comparable scales</a>
+<ul>
+<li><a href="#sub-population-1-2" id="toc-sub-population-1-2">Sub-population 1</a>
+<ul>
+<li><a href="#figure-9a-mse" id="toc-figure-9a-mse">Figure 9a —
+MSE</a></li>
+<li><a href="#figure-9b-deviance" id="toc-figure-9b-deviance">Figure 9b
+— Deviance</a></li>
+</ul></li>
+<li><a href="#sub-population-2-2" id="toc-sub-population-2-2">Sub-population 2</a>
+<ul>
+<li><a href="#figure-9c-mse" id="toc-figure-9c-mse">Figure 9c —
+MSE</a></li>
+<li><a href="#figure-9d-deviance" id="toc-figure-9d-deviance">Figure 9d
+— Deviance</a></li>
+</ul></li>
+<li><a href="#sub-population-3-2" id="toc-sub-population-3-2">Sub-population 3</a>
+<ul>
+<li><a href="#figure-9e-mse" id="toc-figure-9e-mse">Figure 9e —
+MSE</a></li>
+<li><a href="#figure-9f-deviance" id="toc-figure-9f-deviance">Figure 9f
+— Deviance</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#saved-outputs-and-manuscript-table-support" id="toc-saved-outputs-and-manuscript-table-support">Saved outputs and
+manuscript table support</a>
+<ul>
+<li><a href="#outputresults_age_breakets_smooth.csv" id="toc-outputresults_age_breakets_smooth.csv"><code>output/results_age_breakets_smooth.csv</code></a></li>
+<li><a href="#reconstructing-the-average-bic-values-used-in-table-1" id="toc-reconstructing-the-average-bic-values-used-in-table-1">Reconstructing
+the average BIC values used in Table 1</a></li>
+<li><a href="#outputlc_msep_results.rds" id="toc-outputlc_msep_results.rds"><code>output/lc_msep_results.rds</code></a></li>
+<li><a href="#outputconvergence_separate_population_models.csv" id="toc-outputconvergence_separate_population_models.csv"><code>output/convergence_separate_population_models.csv</code></a></li>
+</ul></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
 </ul>
 </div>
 
-<div id="overview" class="section level1">
-<h1>Overview</h1>
-<p>This report mirrors the output inventory in <code>README.md</code>.
-It is designed to be rendered <strong>after</strong> the
-<code>targets</code> pipeline has been run, or with the shipped
-<code>_targets/</code> cache and output files already present.</p>
-<p>The report first summarizes availability, then displays all figures
-and files described in the README, and reconstructs the manuscript BIC
-summary table from <code>output/results_age_breakets_smooth.csv</code>
-when that file is available.</p>
+<div id="purpose-of-this-report" class="section level1">
+<h1>Purpose of this report</h1>
+<p>This report is aligned to the current manuscript structure in the
+submitted PDF.</p>
+<p>It follows the manuscript section-by-section and figure-by-figure,
+with the code-generated outputs organised under:</p>
+<ul>
+<li>Section 4.3.1 / Figure 2</li>
+<li>Section 4.3.2 / Figure 3</li>
+<li>Section 4.3.3 / Figure 4</li>
+<li>Section 4.4.2 / Figure 6</li>
+<li>Appendix B.3 / Figure 7a</li>
+<li>Appendix B.4 / Figures 8 and 9</li>
+</ul>
+<p>The super-population rolling-window MSE and deviance panels are
+intentionally omitted here because they are no longer part of the
+current manuscript, even though legacy targets for those files may still
+exist in <code>_targets.R</code>.</p>
+<p>For routine replication checks, this file can usually be read
+directly together with the shipped <code>figures/</code>,
+<code>output/</code>, and <code>_targets/</code> contents, without
+deleting the cache and rerunning the full pipeline.</p>
 </div>
-<div id="availability-summary" class="section level1">
-<h1>Availability summary</h1>
+<div id="manuscript-linked-inventory" class="section level1">
+<h1>Manuscript-linked inventory</h1>
 <table>
 <colgroup>
-<col width="57%" />
-<col width="11%" />
-<col width="17%" />
 <col width="14%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">section</th>
-<th align="right">n_items</th>
-<th align="right">n_available</th>
-<th align="right">n_missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">7.1 Credibility illustration</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">7.2 Sample-size effect</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">7.3 MSEP fan plots</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">7.4 MSEP appendix comparable scales</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">7.5 Rolling-window MSE</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">7.6 Rolling-window deviance</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">7.7 MSE appendix comparable scales</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">7.8 Deviance appendix comparable scales</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">7.9 Appendix Lexis left panel</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">Saved result files</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<colgroup>
-<col width="23%" />
-<col width="24%" />
-<col width="17%" />
-<col width="29%" />
+<col width="37%" />
+<col width="15%" />
+<col width="27%" />
 <col width="5%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">section</th>
-<th align="left">panel</th>
+<th align="left">manuscript_location</th>
+<th align="left">manuscript_item</th>
 <th align="left">target</th>
 <th align="left">path</th>
 <th align="left">status</th>
@@ -1835,285 +1807,503 @@ when that file is available.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">7.1 Credibility illustration</td>
+<td align="left">Section 4.3.1 / Figure 2a</td>
 <td align="left">Estimated sub-population effects</td>
 <td align="left">fig2a_pdf</td>
 <td align="left">figures/lc_allthetas_zs.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.1 Credibility illustration</td>
+<td align="left">Section 4.3.1 / Figure 2b</td>
 <td align="left">Estimated variances</td>
 <td align="left">fig2b_pdf</td>
 <td align="left">figures/lc_variances.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.1 Credibility illustration</td>
+<td align="left">Section 4.3.1 / Figure 2c</td>
 <td align="left">Credibility weights</td>
 <td align="left">fig2c_pdf</td>
 <td align="left">figures/lc_simulation_zs.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.1 Credibility illustration</td>
+<td align="left">Section 4.3.1 / Figure 2d</td>
 <td align="left">Log mortality by age</td>
 <td align="left">fig2d_pdf</td>
 <td align="left">figures/lc_log_mortality_rates.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3a</td>
 <td align="left">Sub-population 1, age 15</td>
 <td align="left">additional_analysis_2_15_pdf</td>
 <td align="left">figures/an215.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3b</td>
 <td align="left">Sub-population 1, age 55</td>
 <td align="left">additional_analysis_2_55_pdf</td>
 <td align="left">figures/an255.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3c</td>
 <td align="left">Sub-population 1, age 80</td>
 <td align="left">additional_analysis_2_80_pdf</td>
 <td align="left">figures/an280.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3d</td>
 <td align="left">Sub-population 2, age 15</td>
 <td align="left">additional_analysis_3_15_pdf</td>
 <td align="left">figures/an315.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3e</td>
 <td align="left">Sub-population 2, age 55</td>
 <td align="left">additional_analysis_3_55_pdf</td>
 <td align="left">figures/an355.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3f</td>
 <td align="left">Sub-population 2, age 80</td>
 <td align="left">additional_analysis_3_80_pdf</td>
 <td align="left">figures/an380.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3g</td>
 <td align="left">Sub-population 3, age 15</td>
 <td align="left">additional_analysis_1_15_pdf</td>
 <td align="left">figures/an115.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3h</td>
 <td align="left">Sub-population 3, age 55</td>
 <td align="left">additional_analysis_1_55_pdf</td>
 <td align="left">figures/an155.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.2 Sample-size effect</td>
+<td align="left">Section 4.3.2 / Figure 3i</td>
 <td align="left">Sub-population 3, age 80</td>
 <td align="left">additional_analysis_1_80_pdf</td>
 <td align="left">figures/an180.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.3 MSEP fan plots</td>
-<td align="left">Sub-population 1</td>
+<td align="left">Section 4.3.3 / Figure 4a</td>
+<td align="left">expected quadratic forecast error fan plot,
+Sub-population 1</td>
 <td align="left">lc_msep_g2_pdf</td>
 <td align="left">figures/lc_msep_55_g2.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.3 MSEP fan plots</td>
-<td align="left">Sub-population 2</td>
+<td align="left">Section 4.3.3 / Figure 4b</td>
+<td align="left">expected quadratic forecast error fan plot,
+Sub-population 2</td>
 <td align="left">lc_msep_g3_pdf</td>
 <td align="left">figures/lc_msep_55_g3.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.3 MSEP fan plots</td>
-<td align="left">Sub-population 3</td>
+<td align="left">Section 4.3.3 / Figure 4c</td>
+<td align="left">expected quadratic forecast error fan plot,
+Sub-population 3</td>
 <td align="left">lc_msep_g1_pdf</td>
 <td align="left">figures/lc_msep_55_g1.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.4 MSEP appendix comparable scales</td>
-<td align="left">Sub-population 1</td>
-<td align="left">lc_msep_g2_app</td>
-<td align="left">figures/lc_msep_55_g2_appendix.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="even">
-<td align="left">7.4 MSEP appendix comparable scales</td>
-<td align="left">Sub-population 2</td>
-<td align="left">lc_msep_g3_app</td>
-<td align="left">figures/lc_msep_55_g3_appendix.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="odd">
-<td align="left">7.4 MSEP appendix comparable scales</td>
-<td align="left">Sub-population 3</td>
-<td align="left">lc_msep_g1_app</td>
-<td align="left">figures/lc_msep_55_g1_appendix.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="even">
-<td align="left">7.5 Rolling-window MSE</td>
-<td align="left">Super-population, MSE</td>
-<td align="left">lc_mse_superpop_pdf</td>
-<td align="left">figures/lc_mse_age_classes.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="odd">
-<td align="left">7.5 Rolling-window MSE</td>
-<td align="left">Sub-population 1, MSE</td>
+<td align="left">Section 4.4.2 / Figure 6a</td>
+<td align="left">Rolling-window MSE, Sub-population 1</td>
 <td align="left">lc_mse_group_2_pdf</td>
 <td align="left">figures/lc_mse_age_classes_group_2.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.5 Rolling-window MSE</td>
-<td align="left">Sub-population 2, MSE</td>
-<td align="left">lc_mse_group_3_pdf</td>
-<td align="left">figures/lc_mse_age_classes_group_3.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="odd">
-<td align="left">7.5 Rolling-window MSE</td>
-<td align="left">Sub-population 3, MSE</td>
-<td align="left">lc_mse_group_1_pdf</td>
-<td align="left">figures/lc_mse_age_classes_group_1.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="even">
-<td align="left">7.6 Rolling-window deviance</td>
-<td align="left">Super-population, deviance</td>
-<td align="left">lc_deviance_superpop_pdf</td>
-<td align="left">figures/lc_deviance_age_classes.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="odd">
-<td align="left">7.6 Rolling-window deviance</td>
-<td align="left">Sub-population 1, deviance</td>
+<td align="left">Section 4.4.2 / Figure 6b</td>
+<td align="left">Rolling-window deviance, Sub-population 1</td>
 <td align="left">lc_deviance_group_2_pdf</td>
 <td align="left">figures/lc_deviance_age_classes_group_2.pdf</td>
 <td align="left">available</td>
 </tr>
+<tr class="odd">
+<td align="left">Section 4.4.2 / Figure 6c</td>
+<td align="left">Rolling-window MSE, Sub-population 2</td>
+<td align="left">lc_mse_group_3_pdf</td>
+<td align="left">figures/lc_mse_age_classes_group_3.pdf</td>
+<td align="left">available</td>
+</tr>
 <tr class="even">
-<td align="left">7.6 Rolling-window deviance</td>
-<td align="left">Sub-population 2, deviance</td>
+<td align="left">Section 4.4.2 / Figure 6d</td>
+<td align="left">Rolling-window deviance, Sub-population 2</td>
 <td align="left">lc_deviance_group_3_pdf</td>
 <td align="left">figures/lc_deviance_age_classes_group_3.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.6 Rolling-window deviance</td>
-<td align="left">Sub-population 3, deviance</td>
+<td align="left">Section 4.4.2 / Figure 6e</td>
+<td align="left">Rolling-window MSE, Sub-population 3</td>
+<td align="left">lc_mse_group_1_pdf</td>
+<td align="left">figures/lc_mse_age_classes_group_1.pdf</td>
+<td align="left">available</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.4.2 / Figure 6f</td>
+<td align="left">Rolling-window deviance, Sub-population 3</td>
 <td align="left">lc_deviance_group_1_pdf</td>
 <td align="left">figures/lc_deviance_age_classes_group_1.pdf</td>
 <td align="left">available</td>
 </tr>
+<tr class="odd">
+<td align="left">Appendix B.3 / Figure 7a</td>
+<td align="left">Mortality-trend panel (left panel only)</td>
+<td align="left">fig6_pdf</td>
+<td align="left">figures/mortality_rates_simulation.pdf</td>
+<td align="left">available</td>
+</tr>
 <tr class="even">
-<td align="left">7.7 MSE appendix comparable scales</td>
-<td align="left">Super-population, MSE</td>
-<td align="left">lc_mse_superpop_app</td>
-<td align="left">figures/lc_mse_age_classes_app.pdf</td>
+<td align="left">Appendix B.4 / Figure 8a</td>
+<td align="left">Comparable-scale expected quadratic forecast error,
+Sub-population 1</td>
+<td align="left">lc_msep_g2_app</td>
+<td align="left">figures/lc_msep_55_g2_appendix.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.7 MSE appendix comparable scales</td>
-<td align="left">Sub-population 1, MSE</td>
+<td align="left">Appendix B.4 / Figure 8b</td>
+<td align="left">Comparable-scale expected quadratic forecast error,
+Sub-population 2</td>
+<td align="left">lc_msep_g3_app</td>
+<td align="left">figures/lc_msep_55_g3_appendix.pdf</td>
+<td align="left">available</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 8c</td>
+<td align="left">Comparable-scale expected quadratic forecast error,
+Sub-population 3</td>
+<td align="left">lc_msep_g1_app</td>
+<td align="left">figures/lc_msep_55_g1_appendix.pdf</td>
+<td align="left">available</td>
+</tr>
+<tr class="odd">
+<td align="left">Appendix B.4 / Figure 9a</td>
+<td align="left">Comparable-scale rolling-window MSE, Sub-population
+1</td>
 <td align="left">lc_mse_group_2_app</td>
 <td align="left">figures/lc_mse_age_classes_group_2_app.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">7.7 MSE appendix comparable scales</td>
-<td align="left">Sub-population 2, MSE</td>
-<td align="left">lc_mse_group_3_app</td>
-<td align="left">figures/lc_mse_age_classes_group_3_app.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="odd">
-<td align="left">7.7 MSE appendix comparable scales</td>
-<td align="left">Sub-population 3, MSE</td>
-<td align="left">lc_mse_group_1_app</td>
-<td align="left">figures/lc_mse_age_classes_group_1_app.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="even">
-<td align="left">7.8 Deviance appendix comparable scales</td>
-<td align="left">Super-population, deviance</td>
-<td align="left">lc_deviance_superpop_app</td>
-<td align="left">figures/lc_deviance_age_classes_app.pdf</td>
-<td align="left">available</td>
-</tr>
-<tr class="odd">
-<td align="left">7.8 Deviance appendix comparable scales</td>
-<td align="left">Sub-population 1, deviance</td>
+<td align="left">Appendix B.4 / Figure 9b</td>
+<td align="left">Comparable-scale rolling-window deviance,
+Sub-population 1</td>
 <td align="left">lc_deviance_group_2_app</td>
 <td align="left">figures/lc_deviance_age_classes_group_2_app.pdf</td>
 <td align="left">available</td>
 </tr>
+<tr class="odd">
+<td align="left">Appendix B.4 / Figure 9c</td>
+<td align="left">Comparable-scale rolling-window MSE, Sub-population
+2</td>
+<td align="left">lc_mse_group_3_app</td>
+<td align="left">figures/lc_mse_age_classes_group_3_app.pdf</td>
+<td align="left">available</td>
+</tr>
 <tr class="even">
-<td align="left">7.8 Deviance appendix comparable scales</td>
-<td align="left">Sub-population 2, deviance</td>
+<td align="left">Appendix B.4 / Figure 9d</td>
+<td align="left">Comparable-scale rolling-window deviance,
+Sub-population 2</td>
 <td align="left">lc_deviance_group_3_app</td>
 <td align="left">figures/lc_deviance_age_classes_group_3_app.pdf</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">7.8 Deviance appendix comparable scales</td>
-<td align="left">Sub-population 3, deviance</td>
+<td align="left">Appendix B.4 / Figure 9e</td>
+<td align="left">Comparable-scale rolling-window MSE, Sub-population
+3</td>
+<td align="left">lc_mse_group_1_app</td>
+<td align="left">figures/lc_mse_age_classes_group_1_app.pdf</td>
+<td align="left">available</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 9f</td>
+<td align="left">Comparable-scale rolling-window deviance,
+Sub-population 3</td>
 <td align="left">lc_deviance_group_1_app</td>
 <td align="left">figures/lc_deviance_age_classes_group_1_app.pdf</td>
 <td align="left">available</td>
 </tr>
-<tr class="even">
-<td align="left">7.9 Appendix Lexis left panel</td>
-<td align="left">Mortality trend panel</td>
-<td align="left">fig6_pdf</td>
-<td align="left">figures/mortality_rates_simulation.pdf</td>
-<td align="left">available</td>
-</tr>
 <tr class="odd">
-<td align="left">Saved result files</td>
+<td align="left">Saved result file</td>
 <td align="left">Rolling-window aggregated results</td>
 <td align="left">sim_age_bracket_results_file</td>
 <td align="left">output/results_age_breakets_smooth.csv</td>
 <td align="left">available</td>
 </tr>
 <tr class="even">
-<td align="left">Saved result files</td>
-<td align="left">MSEP study object</td>
+<td align="left">Saved result file</td>
+<td align="left">expected quadratic forecast error study object</td>
 <td align="left">lc_msep_results_file</td>
 <td align="left">output/lc_msep_results.rds</td>
 <td align="left">available</td>
 </tr>
 <tr class="odd">
-<td align="left">Saved result files</td>
-<td align="left">Convergence file shipped with supplement</td>
+<td align="left">Shipped auxiliary file</td>
+<td align="left">Convergence summary for separate models</td>
 <td align="left">NA</td>
 <td align="left">output/convergence_separate_population_models.csv</td>
 <td align="left">available</td>
 </tr>
+<tr class="even">
+<td align="left">Manual manuscript element</td>
+<td align="left">Figure 1, Figure 5, Figure 7b, and Table 1</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">missing</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">manuscript_location</th>
+<th align="right">n_items</th>
+<th align="right">n_available</th>
+<th align="right">n_missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Section 4.3.1 / Figure 2a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.1 / Figure 2b</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.1 / Figure 2c</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.1 / Figure 2d</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.2 / Figure 3a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.2 / Figure 3b</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.2 / Figure 3c</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.2 / Figure 3d</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.2 / Figure 3e</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.2 / Figure 3f</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.2 / Figure 3g</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.2 / Figure 3h</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.2 / Figure 3i</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.3 / Figure 4a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.3.3 / Figure 4b</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.3.3 / Figure 4c</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.4.2 / Figure 6a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.4.2 / Figure 6b</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.4.2 / Figure 6c</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.4.2 / Figure 6d</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Section 4.4.2 / Figure 6e</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Section 4.4.2 / Figure 6f</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Appendix B.3 / Figure 7a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 8a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Appendix B.4 / Figure 8b</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 8c</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Appendix B.4 / Figure 9a</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 9b</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Appendix B.4 / Figure 9c</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 9d</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Appendix B.4 / Figure 9e</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Appendix B.4 / Figure 9f</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Saved result file</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Shipped auxiliary file</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Manual manuscript element</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
 </tbody>
 </table>
 </div>
-<div id="credibility-illustration-on-one-simulated-data-set" class="section level1">
-<h1>7.1 Credibility illustration on one simulated data set</h1>
-<div id="estimated-sub-population-effects" class="section level2">
-<h2>Estimated sub-population effects</h2>
+<div id="section-4.3.1-figure-2-estimation-of-components-in-the-credibility-model" class="section level1">
+<h1>Section 4.3.1 — Figure 2: estimation of components in the
+credibility model</h1>
+<p>The manuscript states that Section 4.3.1 discusses the estimated
+sub-population effects, their estimated variances, the credibility
+weights, and the resulting age profile of the predicted mortality
+rates.</p>
+<div id="figure-2a-estimated-sub-population-effects" class="section level2">
+<h2>Figure 2a — Estimated sub-population effects</h2>
 <pre><code>## File: `figures/lc_allthetas_zs.pdf`</code></pre>
 <object data="figures/lc_allthetas_zs.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2121,8 +2311,8 @@ when that file is available.</p>
 </p>
 </object>
 </div>
-<div id="estimated-variances" class="section level2">
-<h2>Estimated variances</h2>
+<div id="figure-2b-estimated-variances" class="section level2">
+<h2>Figure 2b — Estimated variances</h2>
 <pre><code>## File: `figures/lc_variances.pdf`</code></pre>
 <object data="figures/lc_variances.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2130,8 +2320,8 @@ when that file is available.</p>
 </p>
 </object>
 </div>
-<div id="credibility-weights" class="section level2">
-<h2>Credibility weights</h2>
+<div id="figure-2c-credibility-weights" class="section level2">
+<h2>Figure 2c — Credibility weights</h2>
 <pre><code>## File: `figures/lc_simulation_zs.pdf`</code></pre>
 <object data="figures/lc_simulation_zs.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2139,8 +2329,8 @@ when that file is available.</p>
 </p>
 </object>
 </div>
-<div id="log-mortality-by-age" class="section level2">
-<h2>Log mortality by age</h2>
+<div id="figure-2d-log-mortality-by-age" class="section level2">
+<h2>Figure 2d — Log mortality by age</h2>
 <pre><code>## File: `figures/lc_log_mortality_rates.pdf`</code></pre>
 <object data="figures/lc_log_mortality_rates.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2150,12 +2340,17 @@ lc_log_mortality_rates.pdf</a>
 </object>
 </div>
 </div>
-<div id="sample-size-effect-grid" class="section level1">
-<h1>7.2 Sample-size effect grid</h1>
+<div id="section-4.3.2-figure-3-including-more-calendar-years-in-the-data" class="section level1">
+<h1>Section 4.3.2 — Figure 3: including more calendar years in the
+data</h1>
+<p>The manuscript uses Figure 3 to show how the credibility predictor
+changes as more sample years are added, with rows corresponding to
+sub-populations 1–3 and columns corresponding to ages 15, 55, and
+80.</p>
 <div id="sub-population-1" class="section level2">
 <h2>Sub-population 1</h2>
-<div id="age-15" class="section level3">
-<h3>Age 15</h3>
+<div id="figure-3a-age-15" class="section level3">
+<h3>Figure 3a — Age 15</h3>
 <pre><code>## File: `figures/an215.pdf`</code></pre>
 <object data="figures/an215.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2163,8 +2358,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="age-55" class="section level3">
-<h3>Age 55</h3>
+<div id="figure-3b-age-55" class="section level3">
+<h3>Figure 3b — Age 55</h3>
 <pre><code>## File: `figures/an255.pdf`</code></pre>
 <object data="figures/an255.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2172,8 +2367,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="age-80" class="section level3">
-<h3>Age 80</h3>
+<div id="figure-3c-age-80" class="section level3">
+<h3>Figure 3c — Age 80</h3>
 <pre><code>## File: `figures/an280.pdf`</code></pre>
 <object data="figures/an280.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2184,8 +2379,8 @@ lc_log_mortality_rates.pdf</a>
 </div>
 <div id="sub-population-2" class="section level2">
 <h2>Sub-population 2</h2>
-<div id="age-15-1" class="section level3">
-<h3>Age 15</h3>
+<div id="figure-3d-age-15" class="section level3">
+<h3>Figure 3d — Age 15</h3>
 <pre><code>## File: `figures/an315.pdf`</code></pre>
 <object data="figures/an315.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2193,8 +2388,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="age-55-1" class="section level3">
-<h3>Age 55</h3>
+<div id="figure-3e-age-55" class="section level3">
+<h3>Figure 3e — Age 55</h3>
 <pre><code>## File: `figures/an355.pdf`</code></pre>
 <object data="figures/an355.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2202,8 +2397,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="age-80-1" class="section level3">
-<h3>Age 80</h3>
+<div id="figure-3f-age-80" class="section level3">
+<h3>Figure 3f — Age 80</h3>
 <pre><code>## File: `figures/an380.pdf`</code></pre>
 <object data="figures/an380.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2214,8 +2409,8 @@ lc_log_mortality_rates.pdf</a>
 </div>
 <div id="sub-population-3" class="section level2">
 <h2>Sub-population 3</h2>
-<div id="age-15-2" class="section level3">
-<h3>Age 15</h3>
+<div id="figure-3g-age-15" class="section level3">
+<h3>Figure 3g — Age 15</h3>
 <pre><code>## File: `figures/an115.pdf`</code></pre>
 <object data="figures/an115.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2223,8 +2418,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="age-55-2" class="section level3">
-<h3>Age 55</h3>
+<div id="figure-3h-age-55" class="section level3">
+<h3>Figure 3h — Age 55</h3>
 <pre><code>## File: `figures/an155.pdf`</code></pre>
 <object data="figures/an155.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2232,8 +2427,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="age-80-2" class="section level3">
-<h3>Age 80</h3>
+<div id="figure-3i-age-80" class="section level3">
+<h3>Figure 3i — Age 80</h3>
 <pre><code>## File: `figures/an180.pdf`</code></pre>
 <object data="figures/an180.pdf" type="application/pdf" width="100%" height="480px">
 <p>
@@ -2243,10 +2438,13 @@ lc_log_mortality_rates.pdf</a>
 </div>
 </div>
 </div>
-<div id="msep-fan-plots" class="section level1">
-<h1>7.3 MSEP fan plots</h1>
-<div id="sub-population-1-1" class="section level2">
-<h2>Sub-population 1</h2>
+<div id="section-4.3.3-figure-4-mean-squared-error-of-prediction" class="section level1">
+<h1>Section 4.3.3 — Figure 4: mean squared error of prediction</h1>
+<p>The manuscript uses Figure 4 for the expected quadratic forecast
+error comparison at age 55 over a five-year horizon, with panels for
+sub-populations 1–3.</p>
+<div id="figure-4a-sub-population-1" class="section level2">
+<h2>Figure 4a — Sub-population 1</h2>
 <pre><code>## File: `figures/lc_msep_55_g2.pdf`</code></pre>
 <object data="figures/lc_msep_55_g2.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2254,8 +2452,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-2-1" class="section level2">
-<h2>Sub-population 2</h2>
+<div id="figure-4b-sub-population-2" class="section level2">
+<h2>Figure 4b — Sub-population 2</h2>
 <pre><code>## File: `figures/lc_msep_55_g3.pdf`</code></pre>
 <object data="figures/lc_msep_55_g3.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2263,8 +2461,8 @@ lc_log_mortality_rates.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-3-1" class="section level2">
-<h2>Sub-population 3</h2>
+<div id="figure-4c-sub-population-3" class="section level2">
+<h2>Figure 4c — Sub-population 3</h2>
 <pre><code>## File: `figures/lc_msep_55_g1.pdf`</code></pre>
 <object data="figures/lc_msep_55_g1.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2273,56 +2471,16 @@ lc_log_mortality_rates.pdf</a>
 </object>
 </div>
 </div>
-<div id="appendix-msep-fan-plots-on-comparable-scales" class="section level1">
-<h1>7.4 Appendix MSEP fan plots on comparable scales</h1>
-<p>These items are listed in the README, but the corresponding appendix
-targets are not present in the current <code>_targets.R</code>. The
-report therefore shows them when the files exist and otherwise marks
-them as unavailable.</p>
-<div id="sub-population-1-2" class="section level2">
+<div id="section-4.4.2-figure-6-out-of-sample-performance-across-repeated-simulations" class="section level1">
+<h1>Section 4.4.2 — Figure 6: out-of-sample performance across repeated
+simulations</h1>
+<p>The current manuscript uses Figure 6 for the rolling-window
+out-of-sample performance plots. Only the sub-population panels are part
+of the current manuscript version.</p>
+<div id="sub-population-1-1" class="section level2">
 <h2>Sub-population 1</h2>
-<pre><code>## File: `figures/lc_msep_55_g2_appendix.pdf`</code></pre>
-<object data="figures/lc_msep_55_g2_appendix.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_msep_55_g2_appendix.pdf">Open
-lc_msep_55_g2_appendix.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-2-2" class="section level2">
-<h2>Sub-population 2</h2>
-<pre><code>## File: `figures/lc_msep_55_g3_appendix.pdf`</code></pre>
-<object data="figures/lc_msep_55_g3_appendix.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_msep_55_g3_appendix.pdf">Open
-lc_msep_55_g3_appendix.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-3-2" class="section level2">
-<h2>Sub-population 3</h2>
-<pre><code>## File: `figures/lc_msep_55_g1_appendix.pdf`</code></pre>
-<object data="figures/lc_msep_55_g1_appendix.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_msep_55_g1_appendix.pdf">Open
-lc_msep_55_g1_appendix.pdf</a>
-</p>
-</object>
-</div>
-</div>
-<div id="rolling-window-mse" class="section level1">
-<h1>7.5 Rolling-window MSE</h1>
-<div id="super-population-mse" class="section level2">
-<h2>Super-population, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes.pdf`</code></pre>
-<object data="figures/lc_mse_age_classes.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_mse_age_classes.pdf">Open lc_mse_age_classes.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-1-mse" class="section level2">
-<h2>Sub-population 1, MSE</h2>
+<div id="figure-6a-mse" class="section level3">
+<h3>Figure 6a — MSE</h3>
 <pre><code>## File: `figures/lc_mse_age_classes_group_2.pdf`</code></pre>
 <object data="figures/lc_mse_age_classes_group_2.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2331,41 +2489,8 @@ lc_mse_age_classes_group_2.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-2-mse" class="section level2">
-<h2>Sub-population 2, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes_group_3.pdf`</code></pre>
-<object data="figures/lc_mse_age_classes_group_3.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_mse_age_classes_group_3.pdf">Open
-lc_mse_age_classes_group_3.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-3-mse" class="section level2">
-<h2>Sub-population 3, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes_group_1.pdf`</code></pre>
-<object data="figures/lc_mse_age_classes_group_1.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_mse_age_classes_group_1.pdf">Open
-lc_mse_age_classes_group_1.pdf</a>
-</p>
-</object>
-</div>
-</div>
-<div id="rolling-window-deviance" class="section level1">
-<h1>7.6 Rolling-window deviance</h1>
-<div id="super-population-deviance" class="section level2">
-<h2>Super-population, deviance</h2>
-<pre><code>## File: `figures/lc_deviance_age_classes.pdf`</code></pre>
-<object data="figures/lc_deviance_age_classes.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_deviance_age_classes.pdf">Open
-lc_deviance_age_classes.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-1-deviance" class="section level2">
-<h2>Sub-population 1, deviance</h2>
+<div id="figure-6b-deviance" class="section level3">
+<h3>Figure 6b — Deviance</h3>
 <pre><code>## File: `figures/lc_deviance_age_classes_group_2.pdf`</code></pre>
 <object data="figures/lc_deviance_age_classes_group_2.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2374,8 +2499,21 @@ lc_deviance_age_classes_group_2.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-2-deviance" class="section level2">
-<h2>Sub-population 2, deviance</h2>
+</div>
+<div id="sub-population-2-1" class="section level2">
+<h2>Sub-population 2</h2>
+<div id="figure-6c-mse" class="section level3">
+<h3>Figure 6c — MSE</h3>
+<pre><code>## File: `figures/lc_mse_age_classes_group_3.pdf`</code></pre>
+<object data="figures/lc_mse_age_classes_group_3.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_mse_age_classes_group_3.pdf">Open
+lc_mse_age_classes_group_3.pdf</a>
+</p>
+</object>
+</div>
+<div id="figure-6d-deviance" class="section level3">
+<h3>Figure 6d — Deviance</h3>
 <pre><code>## File: `figures/lc_deviance_age_classes_group_3.pdf`</code></pre>
 <object data="figures/lc_deviance_age_classes_group_3.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2384,8 +2522,21 @@ lc_deviance_age_classes_group_3.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-3-deviance" class="section level2">
-<h2>Sub-population 3, deviance</h2>
+</div>
+<div id="sub-population-3-1" class="section level2">
+<h2>Sub-population 3</h2>
+<div id="figure-6e-mse" class="section level3">
+<h3>Figure 6e — MSE</h3>
+<pre><code>## File: `figures/lc_mse_age_classes_group_1.pdf`</code></pre>
+<object data="figures/lc_mse_age_classes_group_1.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_mse_age_classes_group_1.pdf">Open
+lc_mse_age_classes_group_1.pdf</a>
+</p>
+</object>
+</div>
+<div id="figure-6f-deviance" class="section level3">
+<h3>Figure 6f — Deviance</h3>
 <pre><code>## File: `figures/lc_deviance_age_classes_group_1.pdf`</code></pre>
 <object data="figures/lc_deviance_age_classes_group_1.pdf" type="application/pdf" width="100%" height="550px">
 <p>
@@ -2395,25 +2546,80 @@ lc_deviance_age_classes_group_1.pdf</a>
 </object>
 </div>
 </div>
-<div id="appendix-rolling-window-mse-on-comparable-scales" class="section level1">
-<h1>7.7 Appendix rolling-window MSE on comparable scales</h1>
-<p>These items are listed in the README, but the corresponding appendix
-targets are not present in the current <code>_targets.R</code>. The
-report therefore shows them when the files exist and otherwise marks
-them as unavailable.</p>
-<div id="super-population-mse-1" class="section level2">
-<h2>Super-population, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes_app.pdf`</code></pre>
-<object data="figures/lc_mse_age_classes_app.pdf" type="application/pdf" width="100%" height="550px">
+</div>
+<div id="appendix-b.3-figure-7" class="section level1">
+<h1>Appendix B.3 — Figure 7</h1>
+<p>The code supplement only generates the left panel of Figure 7.</p>
+<div id="figure-7a-mortality-trend-panel" class="section level2">
+<h2>Figure 7a — Mortality-trend panel</h2>
+<pre><code>## File: `figures/mortality_rates_simulation.pdf`
+## 
+## This corresponds to Figure 7a in the manuscript. Figure 7b is a manuscript-side Lexis diagram and is not a pipeline output.</code></pre>
+<object data="figures/mortality_rates_simulation.pdf" type="application/pdf" width="100%" height="550px">
 <p>
-<a href="figures/lc_mse_age_classes_app.pdf">Open
-lc_mse_age_classes_app.pdf</a>
+<a href="figures/mortality_rates_simulation.pdf">Open
+mortality_rates_simulation.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-1-mse-1" class="section level2">
-<h2>Sub-population 1, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes_group_2_app.pdf`</code></pre>
+</div>
+<div id="appendix-b.4-figure-8-figure-4-on-comparable-scales" class="section level1">
+<h1>Appendix B.4 — Figure 8: Figure 4 on comparable scales</h1>
+<p>The manuscript appendix reports Figure 8 as the common-scale version
+of the Figure 4 expected quadratic forecast error fan plots. These
+appendix files are shown if present. If they are missing, that means
+they are referenced in the manuscript but are not currently produced by
+the present <code>_targets.R</code>.</p>
+<div id="figure-8a-sub-population-1" class="section level2">
+<h2>Figure 8a — Sub-population 1</h2>
+<pre><code>## File: `figures/lc_msep_55_g2_appendix.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
+<object data="figures/lc_msep_55_g2_appendix.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_msep_55_g2_appendix.pdf">Open
+lc_msep_55_g2_appendix.pdf</a>
+</p>
+</object>
+</div>
+<div id="figure-8b-sub-population-2" class="section level2">
+<h2>Figure 8b — Sub-population 2</h2>
+<pre><code>## File: `figures/lc_msep_55_g3_appendix.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
+<object data="figures/lc_msep_55_g3_appendix.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_msep_55_g3_appendix.pdf">Open
+lc_msep_55_g3_appendix.pdf</a>
+</p>
+</object>
+</div>
+<div id="figure-8c-sub-population-3" class="section level2">
+<h2>Figure 8c — Sub-population 3</h2>
+<pre><code>## File: `figures/lc_msep_55_g1_appendix.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
+<object data="figures/lc_msep_55_g1_appendix.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_msep_55_g1_appendix.pdf">Open
+lc_msep_55_g1_appendix.pdf</a>
+</p>
+</object>
+</div>
+</div>
+<div id="appendix-b.4-figure-9-figure-6-on-comparable-scales" class="section level1">
+<h1>Appendix B.4 — Figure 9: Figure 6 on comparable scales</h1>
+<p>The manuscript appendix reports Figure 9 as the common-scale version
+of the Figure 6 rolling-window plots. As above, the appendix files are
+shown if present and otherwise flagged as absent from the current
+<code>_targets.R</code>.</p>
+<div id="sub-population-1-2" class="section level2">
+<h2>Sub-population 1</h2>
+<div id="figure-9a-mse" class="section level3">
+<h3>Figure 9a — MSE</h3>
+<pre><code>## File: `figures/lc_mse_age_classes_group_2_app.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
 <object data="figures/lc_mse_age_classes_group_2_app.pdf" type="application/pdf" width="100%" height="550px">
 <p>
 <a href="figures/lc_mse_age_classes_group_2_app.pdf">Open
@@ -2421,46 +2627,11 @@ lc_mse_age_classes_group_2_app.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-2-mse-1" class="section level2">
-<h2>Sub-population 2, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes_group_3_app.pdf`</code></pre>
-<object data="figures/lc_mse_age_classes_group_3_app.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_mse_age_classes_group_3_app.pdf">Open
-lc_mse_age_classes_group_3_app.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-3-mse-1" class="section level2">
-<h2>Sub-population 3, MSE</h2>
-<pre><code>## File: `figures/lc_mse_age_classes_group_1_app.pdf`</code></pre>
-<object data="figures/lc_mse_age_classes_group_1_app.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_mse_age_classes_group_1_app.pdf">Open
-lc_mse_age_classes_group_1_app.pdf</a>
-</p>
-</object>
-</div>
-</div>
-<div id="appendix-rolling-window-deviance-on-comparable-scales" class="section level1">
-<h1>7.8 Appendix rolling-window deviance on comparable scales</h1>
-<p>These items are listed in the README, but the corresponding appendix
-targets are not present in the current <code>_targets.R</code>. The
-report therefore shows them when the files exist and otherwise marks
-them as unavailable.</p>
-<div id="super-population-deviance-1" class="section level2">
-<h2>Super-population, deviance</h2>
-<pre><code>## File: `figures/lc_deviance_age_classes_app.pdf`</code></pre>
-<object data="figures/lc_deviance_age_classes_app.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/lc_deviance_age_classes_app.pdf">Open
-lc_deviance_age_classes_app.pdf</a>
-</p>
-</object>
-</div>
-<div id="sub-population-1-deviance-1" class="section level2">
-<h2>Sub-population 1, deviance</h2>
-<pre><code>## File: `figures/lc_deviance_age_classes_group_2_app.pdf`</code></pre>
+<div id="figure-9b-deviance" class="section level3">
+<h3>Figure 9b — Deviance</h3>
+<pre><code>## File: `figures/lc_deviance_age_classes_group_2_app.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
 <object data="figures/lc_deviance_age_classes_group_2_app.pdf" type="application/pdf" width="100%" height="550px">
 <p>
 <a href="figures/lc_deviance_age_classes_group_2_app.pdf">Open
@@ -2468,9 +2639,26 @@ lc_deviance_age_classes_group_2_app.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-2-deviance-1" class="section level2">
-<h2>Sub-population 2, deviance</h2>
-<pre><code>## File: `figures/lc_deviance_age_classes_group_3_app.pdf`</code></pre>
+</div>
+<div id="sub-population-2-2" class="section level2">
+<h2>Sub-population 2</h2>
+<div id="figure-9c-mse" class="section level3">
+<h3>Figure 9c — MSE</h3>
+<pre><code>## File: `figures/lc_mse_age_classes_group_3_app.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
+<object data="figures/lc_mse_age_classes_group_3_app.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_mse_age_classes_group_3_app.pdf">Open
+lc_mse_age_classes_group_3_app.pdf</a>
+</p>
+</object>
+</div>
+<div id="figure-9d-deviance" class="section level3">
+<h3>Figure 9d — Deviance</h3>
+<pre><code>## File: `figures/lc_deviance_age_classes_group_3_app.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
 <object data="figures/lc_deviance_age_classes_group_3_app.pdf" type="application/pdf" width="100%" height="550px">
 <p>
 <a href="figures/lc_deviance_age_classes_group_3_app.pdf">Open
@@ -2478,9 +2666,26 @@ lc_deviance_age_classes_group_3_app.pdf</a>
 </p>
 </object>
 </div>
-<div id="sub-population-3-deviance-1" class="section level2">
-<h2>Sub-population 3, deviance</h2>
-<pre><code>## File: `figures/lc_deviance_age_classes_group_1_app.pdf`</code></pre>
+</div>
+<div id="sub-population-3-2" class="section level2">
+<h2>Sub-population 3</h2>
+<div id="figure-9e-mse" class="section level3">
+<h3>Figure 9e — MSE</h3>
+<pre><code>## File: `figures/lc_mse_age_classes_group_1_app.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
+<object data="figures/lc_mse_age_classes_group_1_app.pdf" type="application/pdf" width="100%" height="550px">
+<p>
+<a href="figures/lc_mse_age_classes_group_1_app.pdf">Open
+lc_mse_age_classes_group_1_app.pdf</a>
+</p>
+</object>
+</div>
+<div id="figure-9f-deviance" class="section level3">
+<h3>Figure 9f — Deviance</h3>
+<pre><code>## File: `figures/lc_deviance_age_classes_group_1_app.pdf`
+## 
+## Appendix target not currently defined in `_targets.R`.</code></pre>
 <object data="figures/lc_deviance_age_classes_group_1_app.pdf" type="application/pdf" width="100%" height="550px">
 <p>
 <a href="figures/lc_deviance_age_classes_group_1_app.pdf">Open
@@ -2489,20 +2694,11 @@ lc_deviance_age_classes_group_1_app.pdf</a>
 </object>
 </div>
 </div>
-<div id="appendix-lexis-figure-left-panel" class="section level1">
-<h1>7.9 Appendix Lexis figure: left panel</h1>
-<pre><code>## File: `figures/mortality_rates_simulation.pdf`</code></pre>
-<object data="figures/mortality_rates_simulation.pdf" type="application/pdf" width="100%" height="550px">
-<p>
-<a href="figures/mortality_rates_simulation.pdf">Open
-mortality_rates_simulation.pdf</a>
-</p>
-</object>
 </div>
-<div id="saved-result-files" class="section level1">
-<h1>Saved result files</h1>
-<div id="rolling-window-aggregated-results" class="section level2">
-<h2>Rolling-window aggregated results</h2>
+<div id="saved-outputs-and-manuscript-table-support" class="section level1">
+<h1>Saved outputs and manuscript table support</h1>
+<div id="outputresults_age_breakets_smooth.csv" class="section level2">
+<h2><code>output/results_age_breakets_smooth.csv</code></h2>
 <pre><code>## File: `output/results_age_breakets_smooth.csv`</code></pre>
 <table style="width:100%;">
 <colgroup>
@@ -2833,48 +3029,59 @@ mortality_rates_simulation.pdf</a>
 </tbody>
 </table>
 </div>
-<div id="msep-study-object" class="section level2">
-<h2>MSEP study object</h2>
-<pre><code>## File: `output/lc_msep_results.rds`</code></pre>
+<div id="reconstructing-the-average-bic-values-used-in-table-1" class="section level2">
+<h2>Reconstructing the average BIC values used in Table 1</h2>
 <table>
-<colgroup>
-<col width="8%" />
-<col width="45%" />
-<col width="18%" />
-<col width="27%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="left">group</th>
-<th align="left">used_global_fallback_for_separate</th>
-<th align="right">reference_age</th>
-<th align="right">forecasting_horizon</th>
+<th align="left">predictor</th>
+<th align="right">average_bic</th>
+<th align="right">average_bic_div_1000</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">1</td>
-<td align="left">FALSE</td>
-<td align="right">55</td>
-<td align="right">5</td>
+<td align="left">lc</td>
+<td align="right">14354.27</td>
+<td align="right">14.35427</td>
 </tr>
 <tr class="even">
-<td align="left">2</td>
-<td align="left">TRUE</td>
-<td align="right">55</td>
-<td align="right">5</td>
+<td align="left">rh</td>
+<td align="right">15456.45</td>
+<td align="right">15.45645</td>
 </tr>
 <tr class="odd">
-<td align="left">3</td>
-<td align="left">TRUE</td>
-<td align="right">55</td>
-<td align="right">5</td>
+<td align="left">apc</td>
+<td align="right">15603.23</td>
+<td align="right">15.60323</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="convergence-file-shipped-with-supplement" class="section level2">
-<h2>Convergence file shipped with supplement</h2>
+<div id="outputlc_msep_results.rds" class="section level2">
+<h2><code>output/lc_msep_results.rds</code></h2>
+<pre><code>## File: `output/lc_msep_results.rds`</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">predictor</th>
+<th align="right">reference_age</th>
+<th align="right">forecasting_horizon</th>
+<th align="right">n_groups</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lc</td>
+<td align="right">55</td>
+<td align="right">5</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outputconvergence_separate_population_models.csv" class="section level2">
+<h2><code>output/convergence_separate_population_models.csv</code></h2>
 <pre><code>## File: `output/convergence_separate_population_models.csv`</code></pre>
 <table>
 <thead>
@@ -2975,84 +3182,20 @@ mortality_rates_simulation.pdf</a>
 </table>
 </div>
 </div>
-<div id="table-reconstructed-average-bic-values" class="section level1">
-<h1>Table: reconstructed average BIC values</h1>
-<p>The README states that the manuscript BIC summary can be
-reconstructed from <code>output/results_age_breakets_smooth.csv</code>.
-The table below implements that reconstruction directly.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">predictor</th>
-<th align="right">average_bic</th>
-<th align="right">average_bic_div_1000</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">lc</td>
-<td align="right">14354.27</td>
-<td align="right">14.354</td>
-</tr>
-<tr class="even">
-<td align="left">rh</td>
-<td align="right">15456.45</td>
-<td align="right">15.456</td>
-</tr>
-<tr class="odd">
-<td align="left">apc</td>
-<td align="right">15603.23</td>
-<td align="right">15.603</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="session-information" class="section level1">
-<h1>Session information</h1>
-<pre><code>## R version 4.5.2 (2025-10-31 ucrt)
-## Platform: x86_64-w64-mingw32/x64
-## Running under: Windows 11 x64 (build 26100)
-## 
-## Matrix products: default
-##   LAPACK version 3.12.1
-## 
-## locale:
-## [1] LC_COLLATE=Danish_Denmark.utf8  LC_CTYPE=Danish_Denmark.utf8   
-## [3] LC_MONETARY=Danish_Denmark.utf8 LC_NUMERIC=C                   
-## [5] LC_TIME=Danish_Denmark.utf8    
-## 
-## time zone: Europe/Copenhagen
-## tzcode source: internal
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] knitr_1.51          fs_1.6.6            StMoMo_0.4.1       
-##  [4] forecast_9.0.0      gnm_1.1-5           data.table_1.18.2.1
-##  [7] ggplot2_4.0.2       tidyr_1.3.2         dplyr_1.2.0        
-## [10] credMortality_0.1.0 tarchetypes_0.14.0  targets_1.12.0     
-## 
-## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.1   viridisLite_0.4.3  timeDate_4052.112  rootSolve_1.8.2.4 
-##  [5] farver_2.1.2       fields_17.1        S7_0.2.1           fastmap_1.2.0     
-##  [9] digest_0.6.39      rpart_4.1.24       base64url_1.4      dotCall64_1.2     
-## [13] lifecycle_1.0.5    secretbase_1.2.0   processx_3.8.6     magrittr_2.0.4    
-## [17] compiler_4.5.2     rlang_1.1.7        sass_0.4.10        tools_4.5.2       
-## [21] igraph_2.2.2       yaml_2.3.12        prettyunits_1.2.0  curl_7.0.0        
-## [25] TTR_0.24.4         RColorBrewer_1.1-3 relimp_1.0-5       withr_3.0.2       
-## [29] purrr_1.2.1        nnet_7.3-20        grid_4.5.2         qvcalc_1.0.4      
-## [33] xts_0.14.1         colorspace_2.1-2   scales_1.4.0       MASS_7.3-65       
-## [37] cli_3.6.5          rmarkdown_2.30     generics_0.1.4     otel_0.2.0        
-## [41] rstudioapi_0.18.0  cachem_1.1.0       maps_3.4.3         parallel_4.5.2    
-## [45] urca_1.3-4         vctrs_0.7.1        Matrix_1.7-4       jsonlite_2.0.0    
-## [49] callr_3.7.6        tseries_0.10-59    jquerylib_0.1.4    quantmod_0.4.28   
-## [53] glue_1.8.0         spam_2.11-3        codetools_0.2-20   ps_1.9.1          
-## [57] gtable_0.3.6       quadprog_1.5-8     lmtest_0.9-40      tibble_3.3.1      
-## [61] pillar_1.11.1      htmltools_0.5.9    fanplot_4.0.1      R6_2.6.1          
-## [65] evaluate_1.0.5     lattice_0.22-7     backports_1.5.0    fracdiff_1.5-3    
-## [69] bslib_0.10.0       Rcpp_1.1.1         nlme_3.1-168       xfun_0.56         
-## [73] zoo_1.8-15         pkgconfig_2.0.3</code></pre>
+<div id="notes" class="section level1">
+<h1>Notes</h1>
+<ul>
+<li>This report is intentionally manuscript-aligned rather than
+target-name-aligned.</li>
+<li>Some target names are legacy names from earlier drafting stages. The
+report keeps the manuscript numbering first and the target names
+second.</li>
+<li>The super-population rolling-window MSE and deviance files are not
+displayed here because they are not part of the current manuscript.</li>
+<li>If appendix files for Figures 8 and 9 are later added to the
+pipeline, this report will display them automatically as long as the
+file paths match the names used above.</li>
+</ul>
 </div>
 
 
