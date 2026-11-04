@@ -1249,13 +1249,9 @@ age_breaks_tbl <- function(age_min = 16,
                                    N_groups = 3,
                                    exposure_sup = 94500,
                                    exposure_sub = c(5000, 500),
-                                   global_mortality_model_candidates = c("lc", "apc", "rh"),
-                                   hmd_user = "",
-                                   hmd_pass = "") {
+                                   global_mortality_model_candidates = c("lc", "apc", "rh")) {
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -1343,14 +1339,10 @@ run_simulation_study_cell <- function(seed_ix,
                                       ageb_width = 5,
                                       exposure_sup = 94500,
                                       exposure_sub = c(5000, 500),
-                                      global_mortality_model = c("lc", "apc", "rh"),
-                                      hmd_user = "",
-                                      hmd_pass = "") {
+                                      global_mortality_model = c("lc", "apc", "rh")) {
 
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -1550,13 +1542,9 @@ run_separate_failures_cell <- function(seed_ix,
                                        forecasting_horizon = 1,
                                        exposure_sup = 94500,
                                        exposure_sub = c(5000, 500),
-                                       global_mortality_model = c("lc", "apc", "rh"),
-                                       hmd_user = "",
-                                       hmd_pass = "") {
+                                       global_mortality_model = c("lc", "apc", "rh")) {
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -2777,13 +2765,9 @@ run_insample_bic_cell <- function(seed_ix,
                                   exposure_sup = 94500,
                                   exposure_sub = c(5000, 500),
 
-                                  global_mortality_model_candidates = c("lc", "apc", "rh"),
-                                  hmd_user = "",
-                                  hmd_pass = "") {
+                                  global_mortality_model_candidates = c("lc", "apc", "rh")) {
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -3599,4 +3583,3 @@ run_msep_study <- function(data,
     groups = results
   )
 }
-

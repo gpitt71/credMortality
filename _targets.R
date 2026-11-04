@@ -21,33 +21,9 @@ list(
   tar_target(N_groups, 3),
 
   tar_target(
-    hmd_user,
-    {
-      x <- Sys.getenv("HMD_USER", unset = "")
-      if (x == "") {
-        stop("Environment variable HMD_USER is not set.")
-      }
-      x
-    }
-  ),
-
-  tar_target(
-    hmd_pass,
-    {
-      x <- Sys.getenv("HMD_PASS", unset = "")
-      if (x == "") {
-        stop("Environment variable HMD_PASS is not set.")
-      }
-      x
-    }
-  ),
-
-  tar_target(
     dt_0,
     data_generator_hmd_lt(
       seed_input = 1,
-      hmd_username = hmd_user,
-      hmd_password = hmd_pass,
       exposure_sup = 94500,
       exposure_sub = c(5000, 500)
     )
@@ -133,16 +109,14 @@ list(
 
     dt <- print_age_effects(
       seed_input = 1,
-      hmd_username = hmd_user,
-      hmd_password = hmd_pass,
       exposure_sup = 94500,
       exposure_sub = c(5000, 500)
     )
     setDT(dt)
 
-    dt[['ages']] <- 1:nrow(dt)
+    dt[["ages"]] <- 0:(nrow(dt) - 1L)
 
-    dt <- dt[ages_fit, ]
+    dt <- dt[ages %in% ages_fit]
 
     p <- all_thetas_plotter(credibility_model, N_groups, ages_fit, predictor = "lc") +
       scale_color_manual(
@@ -472,8 +446,6 @@ list(
       ageb_width = sim_ageb_width,
       exposure_sup = 94500,
       exposure_sub = c(5000, 500),
-      hmd_user = hmd_user,
-      hmd_pass = hmd_pass,
       global_mortality_model = c("lc","apc","rh")
     ),
     pattern = map(sim_design),
