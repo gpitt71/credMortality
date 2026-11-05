@@ -1,6 +1,5 @@
 # _targets.R
 library(targets)
-library(tarchetypes)
 library(credMortality)   # after you package-ify
 
 
@@ -21,33 +20,9 @@ list(
   tar_target(N_groups, 3),
 
   tar_target(
-    hmd_user,
-    {
-      x <- Sys.getenv("HMD_USER", unset = "")
-      if (x == "") {
-        stop("Environment variable HMD_USER is not set.")
-      }
-      x
-    }
-  ),
-
-  tar_target(
-    hmd_pass,
-    {
-      x <- Sys.getenv("HMD_PASS", unset = "")
-      if (x == "") {
-        stop("Environment variable HMD_PASS is not set.")
-      }
-      x
-    }
-  ),
-
-  tar_target(
     dt_0,
     data_generator_hmd_lt(
       seed_input = 1,
-      hmd_username = hmd_user,
-      hmd_password = hmd_pass,
       exposure_sup = 94500,
       exposure_sub = c(5000, 500)
     )
@@ -133,16 +108,14 @@ list(
 
     dt <- print_age_effects(
       seed_input = 1,
-      hmd_username = hmd_user,
-      hmd_password = hmd_pass,
       exposure_sup = 94500,
       exposure_sub = c(5000, 500)
     )
     setDT(dt)
 
-    dt[['ages']] <- 1:nrow(dt)
+    dt[["ages"]] <- 0:(nrow(dt) - 1L)
 
-    dt <- dt[ages_fit, ]
+    dt <- dt[ages %in% ages_fit]
 
     p <- all_thetas_plotter(credibility_model, N_groups, ages_fit, predictor = "lc") +
       scale_color_manual(
@@ -464,6 +437,7 @@ list(
     sim_age_bracket_results_branch,
     run_simulation_study_cell(
       seed_ix = sim_design$seed_ix,
+      stmomoseed = sim_design$seed_ix,
       years_ix = sim_design$years_ix,
       ages_fit = ages_fit,
       years_fit_basic = sim_years_fit_basic,
@@ -472,8 +446,6 @@ list(
       ageb_width = sim_ageb_width,
       exposure_sup = 94500,
       exposure_sub = c(5000, 500),
-      hmd_user = hmd_user,
-      hmd_pass = hmd_pass,
       global_mortality_model = c("lc","apc","rh")
     ),
     pattern = map(sim_design),
@@ -1072,12 +1044,5 @@ list(
   tar_target(lc_msep_g3_app, {
     out <- sprintf("figures/lc_msep_%s_g3_appendix.pdf", msep_reference_age)
     write_msep_plot(lc_msep_results$groups[["3"]], out, ylim = msep_ylim_appendix)
-  }, format = "file"),
-  tarchetypes::tar_render(
-    report_html,
-    "report.Rmd"
-  )
-
-
-
+  }, format = "file")
 )

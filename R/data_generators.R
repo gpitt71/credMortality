@@ -2,32 +2,40 @@
 #' @import data.table
 #' @import StMoMo
 NULL
+
+.frozen_ita_female_data <- function() {
+  data_env <- new.env(parent = emptyenv())
+  utils::data(
+    "ITAFemaleData",
+    package = "credMortality",
+    envir = data_env
+  )
+  data_env[["ITAFemaleData"]]
+}
+
 #' data_generator_hmd_lt
 #'
-#' Purpose: data_generator_hmd_lt for the mortality forecasting reproducibility workflow.
+#' Generate the synthetic mortality populations from the frozen HMD snapshot.
+#'
+#' The source schedules are read exclusively from the documented
+#' [ITAFemaleData] object bundled in `data/ITAFemaleData.rda`. The underlying
+#' snapshot was downloaded from the Human Mortality Database on 2026-02-10; no
+#' network access or HMD credentials are used.
 #' @param seed_input Input used by `data_generator_hmd_lt`.
-#' @param hmd_username Input used by `data_generator_hmd_lt`.
-#' @param hmd_password Input used by `data_generator_hmd_lt`.
 #' @param exposure_sup Input used by `data_generator_hmd_lt`.
 #' @param exposure_sub Input used by `data_generator_hmd_lt`.
 #' @return An R object produced by this step of the workflow.
 #' @export
 data_generator_hmd_lt <- function(seed_input = 1,
-                                  hmd_username = NULL,
-                                  hmd_password = NULL,
                                   exposure_sup = 100000,
                                   exposure_sub = c(5000, 500)) {
 
-  # --- fetch HMD data (unchanged) ---
-  ita_data <- demography::hmd.mx(country = "ITA",
-                                 hmd_username,
-                                 hmd_password)
+  ita_data <- .frozen_ita_female_data()
 
+  E1 <- ita_data$Ext
+  D1 <- ita_data$Dxt
 
-  E1 <- ita_data$pop[["female"]]
-  D1 <- E1 * ita_data$rate[["female"]]
-
-  periods_cols <- as.numeric(colnames(E1))
+  periods_cols <- ita_data$years
   periods_cols <- periods_cols - min(periods_cols)
 
   colnames(E1) <- colnames(D1) <- as.character(periods_cols)
@@ -168,32 +176,26 @@ data_generator_hmd_lt <- function(seed_input = 1,
 # Print group and age effect ----
 #' print_age_effects
 #'
-#' Purpose: print_age_effects for the mortality forecasting reproducibility workflow.
+#' Return the simulated age effects from the frozen HMD snapshot.
+#'
+#' This function uses the same bundled 2026-02-10 Italy snapshot as
+#' [data_generator_hmd_lt()] and never downloads data.
 #' @param seed_input Input used by `print_age_effects`.
-#' @param hmd_username Input used by `print_age_effects`.
-#' @param hmd_password Input used by `print_age_effects`.
 #' @param exposure_sup Input used by `print_age_effects`.
 #' @param exposure_sub Input used by `print_age_effects`.
 #' @return An R object produced by this step of the workflow.
 #' @export
 print_age_effects <- function(seed_input=1,
-                                  hmd_username=NULL,
-                                  hmd_password=NULL,
                                   exposure_sup=100000,
                                   exposure_sub=c(5000,
                                                  500)){
 
+  ita_data <- .frozen_ita_female_data()
 
-  # --- fetch HMD data (unchanged) ---
-  ita_data <- demography::hmd.mx(country = "ITA",
-                                 hmd_username,
-                                 hmd_password)
+  E1 <- ita_data$Ext
+  D1 <- ita_data$Dxt
 
-
-  E1 <- ita_data$pop[["female"]]
-  D1 <- E1 * ita_data$rate[["female"]]
-
-  periods_cols <- as.numeric(colnames(E1))
+  periods_cols <- ita_data$years
   periods_cols <- periods_cols - min(periods_cols)
 
   colnames(E1) <- colnames(D1) <- as.character(periods_cols)

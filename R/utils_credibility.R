@@ -23,12 +23,15 @@ wide_mat <- function(DT, value_col) {
 #' @param years_fit Input used by `fit_mortality_models`.
 #' @param ages_fit Input used by `fit_mortality_models`.
 #' @param global_mortality_model_candidates Input used by `fit_mortality_models`.
+#' @param stmomoseed Optional random seed set immediately before each
+#'   `StMoMo` model fit.
 #' @return An R object produced by this step of the workflow.
 #' @export
 fit_mortality_models <- function(data_pp,
                                  years_fit,
                                  ages_fit,
-                                 global_mortality_model_candidates = c("lc", "apc", "rh")) {
+                                 global_mortality_model_candidates = c("lc", "apc", "rh"),
+                                 stmomoseed = NULL) {
   l <- list()
 
   mortality_model_lc <- lc(link = "log")
@@ -40,6 +43,9 @@ fit_mortality_models <- function(data_pp,
   if ("lc" %in% global_mortality_model_candidates) {
     model_option <- "lc"
 
+    if (!is.null(stmomoseed)) {
+      set.seed(stmomoseed)
+    }
     suppressWarnings(
       mortality_model_fit <- fit(
         mortality_model_lc,
@@ -63,6 +69,9 @@ fit_mortality_models <- function(data_pp,
   if ("apc" %in% global_mortality_model_candidates) {
     model_option <- "apc"
 
+    if (!is.null(stmomoseed)) {
+      set.seed(stmomoseed)
+    }
     suppressWarnings(
       mortality_model_fit <- fit(
         mortality_model_apc,
@@ -82,6 +91,9 @@ fit_mortality_models <- function(data_pp,
 
     datahat <- data_pp$superpopulation
 
+    if (!is.null(stmomoseed)) {
+      set.seed(stmomoseed)
+    }
     suppressWarnings(
       mortality_model_fit <- fit(
         mortality_model_rh,
@@ -389,6 +401,8 @@ is_implausible_muhat <- function(muhat,
 #' @param forecasting_horizon Input used by `fit_and_predict_separate_models`.
 #' @param max_ratio_implausible Input used by `fit_and_predict_separate_models`.
 #' @param max_log_jump_implausible Input used by `fit_and_predict_separate_models`.
+#' @param stmomoseed Optional random seed set immediately before each
+#'   separate-population `StMoMo` model fit.
 #' @return An R object produced by this step of the workflow.
 #' @export
 fit_and_predict_separate_models <- function(data,
@@ -399,7 +413,8 @@ fit_and_predict_separate_models <- function(data,
                                             bias = 70,
                                             forecasting_horizon,
                                             max_ratio_implausible = 50,
-                                            max_log_jump_implausible = 3.5) {
+                                            max_log_jump_implausible = 3.5,
+                                            stmomoseed = NULL) {
   out <- list()
   observed_rates <- list()
   failed_fits <- data.frame(group = 9999,
@@ -489,6 +504,9 @@ fit_and_predict_separate_models <- function(data,
         class = "StMoMoData"
       )
 
+      if (!is.null(stmomoseed)) {
+        set.seed(stmomoseed)
+      }
       error_check <- tryCatch(
         assign(
           paste0("mortality_model_fit", i),
@@ -1249,13 +1267,9 @@ age_breaks_tbl <- function(age_min = 16,
                                    N_groups = 3,
                                    exposure_sup = 94500,
                                    exposure_sub = c(5000, 500),
-                                   global_mortality_model_candidates = c("lc", "apc", "rh"),
-                                   hmd_user = "",
-                                   hmd_pass = "") {
+                                   global_mortality_model_candidates = c("lc", "apc", "rh")) {
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -1332,6 +1346,8 @@ age_breaks_tbl <- function(age_min = 16,
 #' run_simulation_study_cell
 #'
 #' Purpose: run_simulation_study_cell for the mortality forecasting reproducibility workflow.
+#' @param stmomoseed Random seed set immediately before every `StMoMo` fit.
+#'   By default, this is the existing simulation seed `seed_ix`.
 #' @return An R object produced by this step of the workflow.
 #' @export
 run_simulation_study_cell <- function(seed_ix,
@@ -1344,13 +1360,10 @@ run_simulation_study_cell <- function(seed_ix,
                                       exposure_sup = 94500,
                                       exposure_sub = c(5000, 500),
                                       global_mortality_model = c("lc", "apc", "rh"),
-                                      hmd_user = "",
-                                      hmd_pass = "") {
+                                      stmomoseed = seed_ix) {
 
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -1371,7 +1384,8 @@ run_simulation_study_cell <- function(seed_ix,
     data_pp = data_pp,
     years_fit = years_fit - min(years_fit),
     ages_fit = ages_fit,
-    global_mortality_model_candidates = global_mortality_model
+    global_mortality_model_candidates = global_mortality_model,
+    stmomoseed = stmomoseed
   )
 
   years_fit_shifted <- years_fit - min(years_fit)
@@ -1403,7 +1417,8 @@ run_simulation_study_cell <- function(seed_ix,
     years_fit = years_fit_shifted,
     ages_fit = ages_fit,
     forecasting_horizon = forecasting_horizon,
-    bias = min(years_fit)
+    bias = min(years_fit),
+    stmomoseed = stmomoseed
   )
 
   bic_dt <- .summarise_insample_bic(
@@ -1540,6 +1555,8 @@ empty_failed_fits_dt <- function() {
 #' run_separate_failures_cell
 #'
 #' Purpose: run_separate_failures_cell for the mortality forecasting reproducibility workflow.
+#' @param stmomoseed Random seed set immediately before every `StMoMo` fit.
+#'   By default, this is the existing simulation seed `seed_ix`.
 #' @return An R object produced by this step of the workflow.
 #' @export
 run_separate_failures_cell <- function(seed_ix,
@@ -1551,12 +1568,9 @@ run_separate_failures_cell <- function(seed_ix,
                                        exposure_sup = 94500,
                                        exposure_sub = c(5000, 500),
                                        global_mortality_model = c("lc", "apc", "rh"),
-                                       hmd_user = "",
-                                       hmd_pass = "") {
+                                       stmomoseed = seed_ix) {
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -1577,7 +1591,8 @@ run_separate_failures_cell <- function(seed_ix,
     data_pp = data_pp,
     years_fit = years_fit - min(years_fit),
     ages_fit = ages_fit,
-    global_mortality_model_candidates = global_mortality_model
+    global_mortality_model_candidates = global_mortality_model,
+    stmomoseed = stmomoseed
   )
 
   separate_model <- fit_and_predict_separate_models(
@@ -1587,7 +1602,8 @@ run_separate_failures_cell <- function(seed_ix,
     years_fit = years_fit - min(years_fit),
     ages_fit = ages_fit,
     forecasting_horizon = forecasting_horizon,
-    bias = min(years_fit)
+    bias = min(years_fit),
+    stmomoseed = stmomoseed
   )
 
   failed_fits <- attr(separate_model, "failed_fit", exact = TRUE)
@@ -2777,13 +2793,9 @@ run_insample_bic_cell <- function(seed_ix,
                                   exposure_sup = 94500,
                                   exposure_sub = c(5000, 500),
 
-                                  global_mortality_model_candidates = c("lc", "apc", "rh"),
-                                  hmd_user = "",
-                                  hmd_pass = "") {
+                                  global_mortality_model_candidates = c("lc", "apc", "rh")) {
   dt_0 <- data_generator_hmd_lt(
     seed_input = seed_ix,
-    hmd_username = hmd_user,
-    hmd_password = hmd_pass,
     exposure_sup = exposure_sup,
     exposure_sub = exposure_sub
   )
@@ -3599,4 +3611,3 @@ run_msep_study <- function(data,
     groups = results
   )
 }
-

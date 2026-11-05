@@ -13,7 +13,8 @@ fit_and_predict_separate_models(
   bias = 70,
   forecasting_horizon,
   max_ratio_implausible = 50,
-  max_log_jump_implausible = 3.5
+  max_log_jump_implausible = 3.5,
+  stmomoseed = NULL
 )
 }
 \arguments{
@@ -34,6 +35,9 @@ fit_and_predict_separate_models(
 \item{max_ratio_implausible}{Input used by \code{fit_and_predict_separate_models}.}
 
 \item{max_log_jump_implausible}{Input used by \code{fit_and_predict_separate_models}.}
+
+\item{stmomoseed}{Optional random seed set immediately before each
+separate-population \code{StMoMo} model fit.}
 }
 \value{
 An R object produced by this step of the workflow.

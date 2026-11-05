@@ -6,18 +6,12 @@
 \usage{
 data_generator_hmd_lt(
   seed_input = 1,
-  hmd_username = NULL,
-  hmd_password = NULL,
   exposure_sup = 1e+05,
   exposure_sub = c(5000, 500)
 )
 }
 \arguments{
 \item{seed_input}{Input used by \code{data_generator_hmd_lt}.}
-
-\item{hmd_username}{Input used by \code{data_generator_hmd_lt}.}
-
-\item{hmd_password}{Input used by \code{data_generator_hmd_lt}.}
 
 \item{exposure_sup}{Input used by \code{data_generator_hmd_lt}.}
 
@@ -27,5 +21,11 @@ data_generator_hmd_lt(
 An R object produced by this step of the workflow.
 }
 \description{
-Purpose: data_generator_hmd_lt for the mortality forecasting reproducibility workflow.
+Generate the synthetic mortality populations from the frozen HMD snapshot.
+}
+\details{
+The source schedules are read exclusively from the documented
+\link{ITAFemaleData} object bundled in \code{data/ITAFemaleData.rda}. The underlying
+snapshot was downloaded from the Human Mortality Database on 2026-02-10; no
+network access or HMD credentials are used.
 }

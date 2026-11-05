@@ -14,9 +14,12 @@ run_separate_failures_cell(
   exposure_sup = 94500,
   exposure_sub = c(5000, 500),
   global_mortality_model = c("lc", "apc", "rh"),
-  hmd_user = "",
-  hmd_pass = ""
+  stmomoseed = seed_ix
 )
+}
+\arguments{
+\item{stmomoseed}{Random seed set immediately before every \code{StMoMo} fit.
+By default, this is the existing simulation seed \code{seed_ix}.}
 }
 \value{
 An R object produced by this step of the workflow.

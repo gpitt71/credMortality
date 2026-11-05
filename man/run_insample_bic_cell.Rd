@@ -12,9 +12,7 @@ run_insample_bic_cell(
   N_groups = 3,
   exposure_sup = 94500,
   exposure_sub = c(5000, 500),
-  global_mortality_model_candidates = c("lc", "apc", "rh"),
-  hmd_user = "",
-  hmd_pass = ""
+  global_mortality_model_candidates = c("lc", "apc", "rh")
 )
 }
 \value{

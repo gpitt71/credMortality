@@ -6,18 +6,12 @@
 \usage{
 print_age_effects(
   seed_input = 1,
-  hmd_username = NULL,
-  hmd_password = NULL,
   exposure_sup = 1e+05,
   exposure_sub = c(5000, 500)
 )
 }
 \arguments{
 \item{seed_input}{Input used by \code{print_age_effects}.}
-
-\item{hmd_username}{Input used by \code{print_age_effects}.}
-
-\item{hmd_password}{Input used by \code{print_age_effects}.}
 
 \item{exposure_sup}{Input used by \code{print_age_effects}.}
 
@@ -27,5 +21,9 @@ print_age_effects(
 An R object produced by this step of the workflow.
 }
 \description{
-Purpose: print_age_effects for the mortality forecasting reproducibility workflow.
+Return the simulated age effects from the frozen HMD snapshot.
+}
+\details{
+This function uses the same bundled 2026-02-10 Italy snapshot as
+\code{\link[=data_generator_hmd_lt]{data_generator_hmd_lt()}} and never downloads data.
 }

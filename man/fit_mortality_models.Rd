@@ -8,7 +8,8 @@ fit_mortality_models(
   data_pp,
   years_fit,
   ages_fit,
-  global_mortality_model_candidates = c("lc", "apc", "rh")
+  global_mortality_model_candidates = c("lc", "apc", "rh"),
+  stmomoseed = NULL
 )
 }
 \arguments{
@@ -19,6 +20,9 @@ fit_mortality_models(
 \item{ages_fit}{Input used by \code{fit_mortality_models}.}
 
 \item{global_mortality_model_candidates}{Input used by \code{fit_mortality_models}.}
+
+\item{stmomoseed}{Optional random seed set immediately before each
+\code{StMoMo} model fit.}
 }
 \value{
 An R object produced by this step of the workflow.
