@@ -3,6 +3,9 @@ library(credMortality)
 # The first seed in sim_seed_values (set.seed(42); sample.int(100000)[1:30]).
 seed_ix <- 61413L
 years_ix <- 1L
+# This is deliberately larger than the approximately 4e-11 maximum absolute
+# difference observed for the supplied run, while remaining numerically small.
+numerical_tolerance <- 1e-8
 
 reference <- data.table::fread("output/results_age_breakets_smooth.csv")
 keep <- reference[["seed_ix"]] == seed_ix &
@@ -33,7 +36,7 @@ data.table::setorderv(fresh, ordering)
 comparison <- all.equal(
   as.data.frame(reference),
   as.data.frame(fresh),
-  tolerance = 1e-8,
+  tolerance = numerical_tolerance,
   check.attributes = FALSE
 )
 equal_values <- isTRUE(comparison)
@@ -51,6 +54,7 @@ max_abs_difference <- max(column_differences)
 cat("seed_ix=", seed_ix, " years_ix=", years_ix, "\n", sep = "")
 cat("rows_reference=", nrow(reference), "\n", sep = "")
 cat("rows_fresh=", nrow(fresh), "\n", sep = "")
+cat("numerical_tolerance=", numerical_tolerance, "\n", sep = "")
 cat("equal_within_tolerance=", equal_values, "\n", sep = "")
 cat("max_absolute_numeric_difference=", max_abs_difference, "\n", sep = "")
 

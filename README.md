@@ -164,6 +164,7 @@ library(data.table)
 
 seed_ix <- 61413L # first element of sim_seed_values
 years_ix <- 1L
+numerical_tolerance <- 1e-8
 
 supplied <- fread("output/results_age_breakets_smooth.csv")
 supplied <- supplied[
@@ -192,14 +193,17 @@ setorderv(fresh, comparison_key)
 
 comparison <- all.equal(
   as.data.frame(supplied), as.data.frame(fresh),
-  tolerance = 1e-8, check.attributes = FALSE
+  tolerance = numerical_tolerance, check.attributes = FALSE
 )
 stopifnot(nrow(supplied) == 180L, isTRUE(comparison))
 comparison
 ```
 
-This returns `TRUE`. A small tolerance is used because fitted values can show
-minor platform- or package-version-dependent numerical differences.
+This returns `TRUE`. The numerical tolerance is explicitly set to `1e-8`
+because fitted values can show minor platform- or package-version-dependent
+numerical differences. This is conservative relative to the approximately
+`4e-11` maximum absolute difference observed for the supplied run, while still
+requiring close numerical agreement.
 
 ## 7. Installation and execution
 
